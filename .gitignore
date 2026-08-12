@@ -1,0 +1,22 @@
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Dependencies and build output
+node_modules/
+dist/
+
+# Cloudflare tooling
+.wrangler/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log

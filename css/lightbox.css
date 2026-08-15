@@ -15,20 +15,39 @@
   cursor: pointer;
 }
 
+/*
+  Keep portfolio thumbnails on a composited layer even before hover.
+  Chrome can anti-alias rounded image edges differently when a transform
+  starts on hover; keeping the layer active removes that jagged-to-smooth jump.
+*/
+.project-media {
+  clip-path: inset(0 round 14px);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.project-media img {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
 /* Match the tighter Carling China crop used in the approved Figma layout. */
 #panel-multimedia .project-card:nth-child(2) .project-media img {
-  transform: scale(1.27);
+  transform: translateZ(0) scale(1.27);
 }
 
 @media (hover: hover) and (pointer: fine) {
   #panel-digital .project-media.lightbox-trigger:hover img,
   #panel-brand .project-media.lightbox-trigger:hover img,
   #panel-multimedia .video-card:hover .project-media img {
-    transform: scale(1.012);
+    transform: translateZ(0) scale(1.012);
   }
 
   #panel-multimedia .project-card:nth-child(2):hover .project-media img {
-    transform: scale(1.285);
+    transform: translateZ(0) scale(1.285);
   }
 }
 

@@ -6,7 +6,7 @@
 
   const lightboxStyles = document.createElement('link');
   lightboxStyles.rel = 'stylesheet';
-  lightboxStyles.href = '/css/lightbox.css?v=2';
+  lightboxStyles.href = '/css/lightbox.css?v=3';
   document.head.append(lightboxStyles);
 
   const figmaAssets = {

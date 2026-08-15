@@ -52,15 +52,20 @@
   gap: 14px;
 }
 
+/*
+  Every portfolio image uses the same 16:9 lightbox frame.
+  object-fit: contain preserves the full artwork without stretching or cropping.
+*/
 .image-lightbox-image {
   display: block;
-  width: auto;
+  width: min(1200px, calc(100vw - 180px), calc((100vh - 126px) * 1.7777778));
   height: auto;
-  max-width: min(1400px, calc(100vw - 180px));
-  max-height: calc(100vh - 104px);
+  aspect-ratio: 16 / 9;
   object-fit: contain;
   object-position: center;
-  border-radius: 10px;
+  background: #111416;
+  border-radius: 18px;
+  clip-path: inset(0 round 18px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
 }
 
@@ -180,9 +185,11 @@
   .image-lightbox-next { right: 8px; }
 
   .image-lightbox-image {
-    max-width: calc(100vw - 32px);
+    width: calc(100vw - 32px);
     max-height: calc(100vh - 124px);
-    border-radius: 8px;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    clip-path: inset(0 round 14px);
   }
 
   .image-lightbox-caption {

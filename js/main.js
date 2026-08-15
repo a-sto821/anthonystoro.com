@@ -6,7 +6,7 @@
 
   const lightboxStyles = document.createElement('link');
   lightboxStyles.rel = 'stylesheet';
-  lightboxStyles.href = '/css/lightbox.css?v=1';
+  lightboxStyles.href = '/css/lightbox.css?v=2';
   document.head.append(lightboxStyles);
 
   const figmaAssets = {
@@ -16,14 +16,6 @@
       'https://www.figma.com/api/mcp/asset/8199d4ff-a741-4b88-9602-6cae490f84f6.png',
       'https://www.figma.com/api/mcp/asset/49d556b4-38c8-4192-ba56-7731493c1c72.png',
       'https://www.figma.com/api/mcp/asset/e2440d14-6d50-49a4-9a15-800b8bd8ceb5.png'
-    ],
-    brand: [
-      'https://www.figma.com/api/mcp/asset/c8408522-3925-46d6-9773-2b6630f64472.jpeg',
-      'https://www.figma.com/api/mcp/asset/e137187a-0fcf-46e1-b623-a01cbd7d4639.jpeg',
-      'https://www.figma.com/api/mcp/asset/4981c6d0-89b5-4b5a-b844-5cd58d8105ad.jpeg',
-      'https://www.figma.com/api/mcp/asset/2b0d044c-73b1-4b82-897c-da46b833d969.jpeg',
-      'https://www.figma.com/api/mcp/asset/2f77949a-3523-4f78-9e4b-37f77a926e39.jpeg',
-      'https://www.figma.com/api/mcp/asset/ea063abd-c2b6-4a93-bfbb-811c48bc2cee.jpeg'
     ],
     portrait: 'https://www.figma.com/api/mcp/asset/3792481b-4127-4eba-88f6-d897f94a5b82.png'
   };
@@ -35,9 +27,8 @@
     if (figmaAssets.digital[index]) img.src = figmaAssets.digital[index];
   });
 
-  document.querySelectorAll('#panel-brand .project-media img').forEach((img, index) => {
-    if (figmaAssets.brand[index]) img.src = figmaAssets.brand[index];
-  });
+  /* Brand + Print intentionally uses the image URLs defined in the HTML.
+     Do not replace them with the smaller Figma preview assets. */
 
   const portrait = document.querySelector('.portrait-placeholder img');
   if (portrait) {
@@ -77,7 +68,8 @@
     const title = media.closest('.project-card')?.querySelector('h3')?.textContent?.trim() || img?.alt || '';
     if (!img) return;
 
-    lightboxImage.src = img.currentSrc || img.src;
+    const fullSource = img.dataset.lightboxSrc || img.currentSrc || img.src;
+    lightboxImage.src = fullSource;
     lightboxImage.alt = img.alt || title;
     lightboxCaption.textContent = title;
     lightboxCaption.hidden = !title;

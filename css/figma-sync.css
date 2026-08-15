@@ -1,0 +1,66 @@
+.hero {
+  position: relative;
+  background-image:
+    url("https://www.figma.com/api/mcp/asset/c4b4abac-fcea-4e3e-b056-dd82a228fa87.svg"),
+    radial-gradient(circle at 91% 12%, rgba(161, 207, 244, .36), transparent 30%),
+    radial-gradient(circle at 34% 92%, rgba(203, 229, 249, .46), transparent 34%),
+    linear-gradient(90deg, #f3f8fc 0%, #f4f8fb 48%, #eaf2f9 100%);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: right top, right top, 28% bottom, center;
+  background-size: 720px 450px, 560px 420px, 560px 360px, 100% 100%;
+}
+
+.hero-art-desktop {
+  left: 617px;
+  right: auto;
+  top: -22px;
+  width: 614px;
+  height: 472px;
+  object-fit: contain;
+  object-position: center;
+  opacity: 1;
+}
+
+.hero-copy { z-index: 3; }
+
+.project-media img {
+  transform: none;
+  object-position: center;
+}
+
+.portrait-placeholder {
+  display: block;
+  background: #181b1e;
+}
+
+.portrait-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    background-image:
+      radial-gradient(circle at 78% 32%, rgba(171, 214, 247, .34), transparent 36%),
+      linear-gradient(90deg, #f3f8fc 0%, #eef6fb 100%);
+    background-size: 100% 100%, 100% 100%;
+  }
+
+  .hero-art-mobile {
+    left: 120px;
+    right: -78px;
+    top: 44px;
+    bottom: auto;
+    height: 320px;
+    background-image: url("https://www.figma.com/api/mcp/asset/5e40bbaf-3521-4926-9e9c-8e03f9498a33.svg");
+    background-size: contain;
+    background-position: center right;
+    background-repeat: no-repeat;
+    opacity: .12;
+    mix-blend-mode: multiply;
+    mask-image: none;
+  }
+}

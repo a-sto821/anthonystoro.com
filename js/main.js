@@ -6,7 +6,7 @@
 
   const lightboxStyles = document.createElement('link');
   lightboxStyles.rel = 'stylesheet';
-  lightboxStyles.href = '/css/lightbox.css?v=5';
+  lightboxStyles.href = '/css/lightbox.css?v=6';
   document.head.append(lightboxStyles);
 
   const figmaAssets = {
@@ -17,6 +17,12 @@
       'https://www.figma.com/api/mcp/asset/49d556b4-38c8-4192-ba56-7731493c1c72.png',
       'https://www.figma.com/api/mcp/asset/e2440d14-6d50-49a4-9a15-800b8bd8ceb5.png'
     ],
+    multimedia: [
+      'https://www.figma.com/api/mcp/asset/1b146291-7363-44bc-9328-97df9f42b917.png',
+      'https://www.figma.com/api/mcp/asset/7475f594-ee68-476e-aaf2-0d4b5b059608.png',
+      'https://www.figma.com/api/mcp/asset/21e3f84f-6f0c-4c43-b60b-37cdfff94b96.png',
+      'https://www.figma.com/api/mcp/asset/47af09d1-7f27-40d9-9552-600fcf280644.png'
+    ],
     conexpo: 'https://www.figma.com/api/mcp/asset/b8e3ed09-9760-4c5d-a991-f5bd53057946.png',
     portrait: 'https://www.figma.com/api/mcp/asset/3792481b-4127-4eba-88f6-d897f94a5b82.png'
   };
@@ -26,6 +32,11 @@
 
   document.querySelectorAll('#panel-digital .project-media img').forEach((img, index) => {
     if (figmaAssets.digital[index]) img.src = figmaAssets.digital[index];
+  });
+
+  /* Use the approved still frames from the ANTHONY STORO Figma file for Multimedia. */
+  document.querySelectorAll('#panel-multimedia .project-media img').forEach((img, index) => {
+    if (figmaAssets.multimedia[index]) img.src = figmaAssets.multimedia[index];
   });
 
   /* Use the clean 16:9 ConExpo crop from Figma node 162:65.
@@ -129,6 +140,77 @@
   lightbox.addEventListener('close', () => {
     lightboxImage.removeAttribute('src');
     if (lightboxTrigger) lightboxTrigger.focus();
+  });
+
+  /* YouTube lightbox for Multimedia. The existing links remain as a no-JS fallback. */
+  const videoLightbox = document.createElement('dialog');
+  videoLightbox.className = 'video-lightbox';
+  videoLightbox.setAttribute('aria-label', 'Portfolio video player');
+  videoLightbox.innerHTML = `
+    <button class="image-lightbox-close video-lightbox-close" type="button" aria-label="Close video"></button>
+    <div class="video-lightbox-stage">
+      <div class="video-lightbox-player">
+        <iframe class="video-lightbox-frame" src="about:blank" title="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <p class="video-lightbox-caption"></p>
+    </div>
+  `;
+  document.body.append(videoLightbox);
+
+  const videoFrame = videoLightbox.querySelector('.video-lightbox-frame');
+  const videoCaption = videoLightbox.querySelector('.video-lightbox-caption');
+  const videoClose = videoLightbox.querySelector('.video-lightbox-close');
+  let videoTrigger = null;
+
+  const getYouTubeId = (href) => {
+    try {
+      const url = new URL(href, window.location.href);
+      const host = url.hostname.replace(/^www\./, '');
+      if (host === 'youtu.be') return url.pathname.split('/').filter(Boolean)[0] || '';
+      if (host === 'youtube.com' || host === 'm.youtube.com') {
+        if (url.searchParams.get('v')) return url.searchParams.get('v');
+        const parts = url.pathname.split('/').filter(Boolean);
+        const embedIndex = parts.indexOf('embed');
+        if (embedIndex !== -1) return parts[embedIndex + 1] || '';
+        const shortsIndex = parts.indexOf('shorts');
+        if (shortsIndex !== -1) return parts[shortsIndex + 1] || '';
+      }
+    } catch (_) {}
+    return '';
+  };
+
+  const openVideoLightbox = (card) => {
+    if (typeof videoLightbox.showModal !== 'function') return false;
+    const videoId = getYouTubeId(card.href);
+    if (!videoId) return false;
+
+    const title = card.querySelector('h3')?.textContent?.trim() || 'Portfolio video';
+    videoTrigger = card;
+    videoFrame.title = title;
+    videoFrame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0`;
+    videoCaption.textContent = title;
+    videoLightbox.showModal();
+    videoClose.focus();
+    return true;
+  };
+
+  document.querySelectorAll('#panel-multimedia a.video-card').forEach((card) => {
+    card.addEventListener('click', (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (openVideoLightbox(card)) event.preventDefault();
+    });
+  });
+
+  videoClose.addEventListener('click', () => videoLightbox.close());
+
+  videoLightbox.addEventListener('click', (event) => {
+    if (event.target === videoLightbox) videoLightbox.close();
+  });
+
+  videoLightbox.addEventListener('close', () => {
+    videoFrame.src = 'about:blank';
+    videoFrame.title = '';
+    if (videoTrigger) videoTrigger.focus();
   });
 
   const menuButton = document.querySelector('.menu-button');

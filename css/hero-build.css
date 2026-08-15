@@ -162,13 +162,62 @@
   transform: scale(1);
 }
 
-/* Keep the build lighter on phones while preserving the same choreography. */
+/*
+  Mobile treatment: preserve the same build choreography, but shift the artwork
+  into a lighter blue-gray palette so it can sit behind the hero copy without
+  competing with legibility. Desktop intentionally retains the darker Figma look.
+*/
 @media (max-width: 720px) {
-  .hb-backplate { transform: translate3d(-14px, 5px, 0) scale(.99); }
-  .hb-core-panel { transform: translate3d(0, 18px, 0) scale(.99); }
-  .hb-module { transform: translate3d(0, 12px, 0) scale(.975); }
+  .hb-glow {
+    background: radial-gradient(circle at 50% 50%, rgba(149, 185, 211, .18) 0%, rgba(206, 224, 237, .10) 62%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  .hb-backplate {
+    background: rgba(255, 255, 255, .34);
+    border-color: rgba(73, 96, 113, .08);
+    transform: translate3d(-14px, 5px, 0) scale(.99);
+  }
+
+  .hb-core-panel {
+    background: rgba(83, 112, 132, .095);
+    border-color: rgba(64, 91, 111, .13);
+    box-shadow: 0 12px 28px rgba(76, 101, 119, .035);
+    transform: translate3d(0, 18px, 0) scale(.99);
+  }
+
+  .hb-core-eyebrow { background: rgba(75, 103, 123, .19); }
+  .hb-core-line-1 { background: rgba(69, 96, 116, .25); }
+  .hb-core-line-2 { background: rgba(75, 103, 123, .16); }
+  .hb-core-line-3 { background: rgba(75, 103, 123, .12); }
+
+  .hb-module {
+    background: rgba(80, 108, 129, .045);
+    border-color: rgba(70, 98, 119, .10);
+    transform: translate3d(0, 12px, 0) scale(.975);
+  }
+
+  .hb-module-bar { background: rgba(69, 96, 116, .16); }
+  .hb-module-dot { background: rgba(69, 96, 116, .10); }
+
+  .hb-card-top,
+  .hb-card-bottom {
+    background: rgba(255, 255, 255, .54);
+    border-color: rgba(70, 94, 111, .07);
+    box-shadow: 0 8px 24px rgba(76, 101, 119, .025);
+  }
+
   .hb-card-top { transform: translate3d(-18px, -14px, 0) scale(.985); }
   .hb-card-bottom { transform: translate3d(18px, 14px, 0) scale(.985); }
+
+  .hb-top-line-1,
+  .hb-bottom-line-1 { background: rgba(57, 80, 98, .27); }
+  .hb-top-line-2,
+  .hb-bottom-line-2 { background: rgba(57, 80, 98, .10); }
+  .hb-top-accent { background: rgba(66, 111, 143, .18); }
+
+  .hb-connector { background: rgba(70, 98, 119, .10); }
+  .hb-node { background: rgba(67, 95, 116, .16); }
+  .hb-grid-dot { background: rgba(67, 95, 116, .11); }
 }
 
 @media (prefers-reduced-motion: reduce) {

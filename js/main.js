@@ -27,26 +27,66 @@
     portrait: 'https://www.figma.com/api/mcp/asset/3792481b-4127-4eba-88f6-d897f94a5b82.png'
   };
 
+  /*
+    Never replace a visible portfolio image with a remote Figma asset until the
+    preferred asset is fully loaded. This prevents the wrong fallback image,
+    broken-image state, or a color flash from appearing during refresh.
+  */
+  const loadPreferredImage = (img, src, { reveal = false } = {}) => {
+    if (!img || !src) return;
+
+    const preloader = new Image();
+    preloader.decoding = 'async';
+
+    preloader.onload = () => {
+      const revealImage = () => {
+        if (reveal) {
+          img.style.transition = 'opacity 160ms ease';
+          img.style.opacity = '1';
+        }
+        img.removeAttribute('data-image-loading');
+      };
+
+      img.addEventListener('load', revealImage, { once: true });
+      img.src = src;
+
+      if (img.complete && img.naturalWidth > 0) revealImage();
+    };
+
+    preloader.onerror = () => {
+      img.removeAttribute('data-image-loading');
+      if (reveal) {
+        /* Keep the neutral project-media background visible instead of
+           exposing a broken or incorrect fallback image. */
+        img.style.opacity = '0';
+      }
+    };
+
+    img.setAttribute('data-image-loading', 'true');
+    preloader.src = src;
+  };
+
   const heroArt = document.querySelector('.hero-art-desktop');
-  if (heroArt) heroArt.src = figmaAssets.hero;
+  if (heroArt) loadPreferredImage(heroArt, figmaAssets.hero);
 
   document.querySelectorAll('#panel-digital .project-media img').forEach((img, index) => {
-    if (figmaAssets.digital[index]) img.src = figmaAssets.digital[index];
+    if (!figmaAssets.digital[index]) return;
+    loadPreferredImage(img, figmaAssets.digital[index], { reveal: index === 0 });
   });
 
   /* Use the approved still frames from the ANTHONY STORO Figma file for Multimedia. */
   document.querySelectorAll('#panel-multimedia .project-media img').forEach((img, index) => {
-    if (figmaAssets.multimedia[index]) img.src = figmaAssets.multimedia[index];
+    if (figmaAssets.multimedia[index]) loadPreferredImage(img, figmaAssets.multimedia[index]);
   });
 
   /* Use the clean 16:9 ConExpo crop from Figma node 162:65.
      Other Brand + Print images continue using the URLs defined in the HTML. */
   const conexpoImage = document.querySelector('#panel-brand .project-card:nth-child(3) .project-media img');
-  if (conexpoImage) conexpoImage.src = figmaAssets.conexpo;
+  if (conexpoImage) loadPreferredImage(conexpoImage, figmaAssets.conexpo);
 
   const portrait = document.querySelector('.portrait-placeholder img');
   if (portrait) {
-    portrait.src = figmaAssets.portrait;
+    loadPreferredImage(portrait, figmaAssets.portrait);
     portrait.alt = 'Anthony Storo';
   }
 

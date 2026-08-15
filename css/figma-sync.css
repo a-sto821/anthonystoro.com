@@ -43,8 +43,8 @@
 
 /*
   Mobile production pass based on Figma frame 179:2 (390px artboard).
-  Keep the layout fluid while preserving the 28px gutters, 334px content column,
-  exact card rhythm, and section heights at the 390px reference viewport.
+  At 390px the measurements map directly to Figma; surrounding mobile widths
+  scale fluidly while retaining the 28px reference gutters and vertical rhythm.
 */
 @media (max-width: 720px) {
   body {
@@ -53,7 +53,6 @@
 
   .shell {
     width: calc(100% - 56px);
-    max-width: 334px;
   }
 
   /* Header */
@@ -63,7 +62,6 @@
 
   .header-inner {
     width: calc(100% - 56px);
-    max-width: 334px;
   }
 
   .brand {
@@ -80,7 +78,7 @@
 
   .mobile-menu {
     top: 76px;
-    padding: 12px max(28px, calc((100vw - 334px) / 2)) 22px;
+    padding: 12px 28px 22px;
   }
 
   /* Hero */
@@ -117,8 +115,7 @@
   }
 
   .hero-tagline {
-    width: 334px;
-    max-width: 100%;
+    width: 100%;
     margin-bottom: 19px;
     font-family: Montserrat, sans-serif;
     font-size: 17px;
@@ -126,8 +123,8 @@
   }
 
   .hero-intro {
-    width: 334px;
-    max-width: 100%;
+    width: 100%;
+    max-width: none;
     font-family: Montserrat, sans-serif;
     font-size: 15px;
     line-height: 1.55;
@@ -144,9 +141,10 @@
     right: auto;
     top: 139px;
     bottom: auto;
-    width: 334px;
-    max-width: calc(100% - 56px);
-    height: 257px;
+    width: calc(100% - 56px);
+    max-width: none;
+    height: auto;
+    aspect-ratio: 334 / 256.923;
     background-image: url("https://www.figma.com/api/mcp/asset/e182f0c3-c0c2-4aec-814f-7099b95be12f.svg");
     background-size: 100% 100%;
     background-position: center;
@@ -186,9 +184,9 @@
     white-space: nowrap;
   }
 
-  #tab-digital { width: 144px; }
-  #tab-multimedia { width: 98px; }
-  #tab-brand { width: 92px; }
+  #tab-digital { width: 43.12%; }
+  #tab-multimedia { width: 29.34%; }
+  #tab-brand { width: 27.54%; }
 
   #tab-digital::after,
   #tab-multimedia::after,
@@ -208,7 +206,7 @@
   }
 
   .project-card {
-    min-height: 252px;
+    min-height: 0;
   }
 
   .project-media,
@@ -283,7 +281,7 @@
 
   /* About */
   .about-section {
-    height: 860px;
+    height: auto;
     min-height: 860px;
     padding: 48px 0;
   }
@@ -319,24 +317,25 @@
   }
 
   .portrait-treatment {
-    width: 334px;
-    max-width: 100%;
-    height: 291px;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    aspect-ratio: 334 / 291.362;
     margin: 4px auto 0;
     transform: none;
   }
 
   .portrait-backplate {
-    left: 23px;
-    top: 23px;
-    width: 311px;
-    height: 269px;
+    left: 6.81%;
+    top: 7.8%;
+    width: 93.19%;
+    height: 92.2%;
     border-radius: 13px;
   }
 
   .portrait-placeholder {
-    width: 311px;
-    height: 269px;
+    width: 93.19%;
+    height: 92.2%;
     border-radius: 13px;
   }
 
@@ -488,7 +487,6 @@
   .hero-art-mobile {
     left: 24px;
     width: calc(100% - 48px);
-    max-width: none;
   }
 
   .shell,
@@ -496,7 +494,8 @@
     width: calc(100% - 48px);
   }
 
-  #tab-digital { width: 43%; }
-  #tab-multimedia { width: 29%; }
-  #tab-brand { width: 28%; }
+  .mobile-menu {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }

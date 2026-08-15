@@ -6,7 +6,7 @@
 
   const lightboxStyles = document.createElement('link');
   lightboxStyles.rel = 'stylesheet';
-  lightboxStyles.href = '/css/lightbox.css?v=4';
+  lightboxStyles.href = '/css/lightbox.css?v=5';
   document.head.append(lightboxStyles);
 
   const figmaAssets = {
@@ -17,6 +17,7 @@
       'https://www.figma.com/api/mcp/asset/49d556b4-38c8-4192-ba56-7731493c1c72.png',
       'https://www.figma.com/api/mcp/asset/e2440d14-6d50-49a4-9a15-800b8bd8ceb5.png'
     ],
+    conexpo: 'https://www.figma.com/api/mcp/asset/b8e3ed09-9760-4c5d-a991-f5bd53057946.png',
     portrait: 'https://www.figma.com/api/mcp/asset/3792481b-4127-4eba-88f6-d897f94a5b82.png'
   };
 
@@ -27,8 +28,10 @@
     if (figmaAssets.digital[index]) img.src = figmaAssets.digital[index];
   });
 
-  /* Brand + Print intentionally uses the image URLs defined in the HTML.
-     Do not replace them with the smaller Figma preview assets. */
+  /* Use the clean 16:9 ConExpo crop from Figma node 162:65.
+     Other Brand + Print images continue using the URLs defined in the HTML. */
+  const conexpoImage = document.querySelector('#panel-brand .project-card:nth-child(3) .project-media img');
+  if (conexpoImage) conexpoImage.src = figmaAssets.conexpo;
 
   const portrait = document.querySelector('.portrait-placeholder img');
   if (portrait) {

@@ -4,6 +4,11 @@
   figmaSyncStyles.href = '/css/figma-sync.css?v=2';
   document.head.append(figmaSyncStyles);
 
+  const lightboxStyles = document.createElement('link');
+  lightboxStyles.rel = 'stylesheet';
+  lightboxStyles.href = '/css/lightbox.css?v=1';
+  document.head.append(lightboxStyles);
+
   const figmaAssets = {
     hero: 'https://www.figma.com/api/mcp/asset/5e40bbaf-3521-4926-9e9c-8e03f9498a33.svg',
     digital: [
@@ -39,6 +44,97 @@
     portrait.src = figmaAssets.portrait;
     portrait.alt = 'Anthony Storo';
   }
+
+  /* Image-only lightbox for Digital Experiences and Brand + Print. */
+  const lightbox = document.createElement('dialog');
+  lightbox.className = 'image-lightbox';
+  lightbox.setAttribute('aria-label', 'Expanded portfolio image');
+  lightbox.innerHTML = `
+    <button class="image-lightbox-close" type="button" aria-label="Close image"></button>
+    <button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="Previous image">‹</button>
+    <div class="image-lightbox-stage">
+      <img class="image-lightbox-image" alt="">
+      <p class="image-lightbox-caption"></p>
+    </div>
+    <button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="Next image">›</button>
+  `;
+  document.body.append(lightbox);
+
+  const lightboxImage = lightbox.querySelector('.image-lightbox-image');
+  const lightboxCaption = lightbox.querySelector('.image-lightbox-caption');
+  const lightboxClose = lightbox.querySelector('.image-lightbox-close');
+  const lightboxPrev = lightbox.querySelector('.image-lightbox-prev');
+  const lightboxNext = lightbox.querySelector('.image-lightbox-next');
+  let lightboxItems = [];
+  let lightboxIndex = 0;
+  let lightboxTrigger = null;
+
+  const setLightboxItem = (index) => {
+    if (!lightboxItems.length) return;
+    lightboxIndex = (index + lightboxItems.length) % lightboxItems.length;
+    const media = lightboxItems[lightboxIndex];
+    const img = media.querySelector('img');
+    const title = media.closest('.project-card')?.querySelector('h3')?.textContent?.trim() || img?.alt || '';
+    if (!img) return;
+
+    lightboxImage.src = img.currentSrc || img.src;
+    lightboxImage.alt = img.alt || title;
+    lightboxCaption.textContent = title;
+    lightboxCaption.hidden = !title;
+    const hasMultiple = lightboxItems.length > 1;
+    lightboxPrev.hidden = !hasMultiple;
+    lightboxNext.hidden = !hasMultiple;
+  };
+
+  const openLightbox = (media) => {
+    const panel = media.closest('#panel-digital, #panel-brand');
+    if (!panel || typeof lightbox.showModal !== 'function') return;
+    lightboxItems = [...panel.querySelectorAll('.project-media.lightbox-trigger')];
+    lightboxIndex = Math.max(0, lightboxItems.indexOf(media));
+    lightboxTrigger = media;
+    setLightboxItem(lightboxIndex);
+    lightbox.showModal();
+    lightboxClose.focus();
+  };
+
+  document.querySelectorAll('#panel-digital .project-media, #panel-brand .project-media').forEach((media) => {
+    const title = media.closest('.project-card')?.querySelector('h3')?.textContent?.trim() || 'project image';
+    media.classList.add('lightbox-trigger');
+    media.setAttribute('role', 'button');
+    media.setAttribute('tabindex', '0');
+    media.setAttribute('aria-label', `View larger image for ${title}`);
+    media.addEventListener('click', () => openLightbox(media));
+    media.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openLightbox(media);
+      }
+    });
+  });
+
+  lightboxClose.addEventListener('click', () => lightbox.close());
+  lightboxPrev.addEventListener('click', () => setLightboxItem(lightboxIndex - 1));
+  lightboxNext.addEventListener('click', () => setLightboxItem(lightboxIndex + 1));
+
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) lightbox.close();
+  });
+
+  lightbox.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      setLightboxItem(lightboxIndex - 1);
+    }
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      setLightboxItem(lightboxIndex + 1);
+    }
+  });
+
+  lightbox.addEventListener('close', () => {
+    lightboxImage.removeAttribute('src');
+    if (lightboxTrigger) lightboxTrigger.focus();
+  });
 
   const menuButton = document.querySelector('.menu-button');
   const mobileMenu = document.querySelector('.mobile-menu');

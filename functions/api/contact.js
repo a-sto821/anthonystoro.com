@@ -1,5 +1,7 @@
 const CONTACT_TO = 'anthonystoro@icloud.com';
 const CONTACT_FROM = 'website@anthonystoro.com';
+const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const ALLOWED_HOSTNAMES = new Set(['anthonystoro.com', 'www.anthonystoro.com']);
 
 const json = (body, status = 200) => Response.json(body, {
   status,
@@ -36,6 +38,44 @@ const isSameOrigin = (request) => {
   }
 };
 
+const verifyTurnstile = async (request, env, token) => {
+  if (!env.TURNSTILE_SECRET_KEY) {
+    return { ok: false, unavailable: true };
+  }
+
+  const body = new URLSearchParams();
+  body.set('secret', env.TURNSTILE_SECRET_KEY);
+  body.set('response', token);
+
+  const ip = request.headers.get('CF-Connecting-IP');
+  if (ip) body.set('remoteip', ip);
+
+  let response;
+  try {
+    response = await fetch(TURNSTILE_VERIFY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body
+    });
+  } catch (error) {
+    console.error('Turnstile verification request failed', error?.message);
+    return { ok: false, unavailable: true };
+  }
+
+  const result = await response.json().catch(() => null);
+  if (!response.ok || !result) {
+    return { ok: false, unavailable: true };
+  }
+
+  const hostnameOk = result.hostname && ALLOWED_HOSTNAMES.has(result.hostname);
+  const actionOk = result.action === 'contact';
+
+  return {
+    ok: result.success === true && hostnameOk && actionOk,
+    unavailable: false
+  };
+};
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -59,9 +99,15 @@ export async function onRequestPost(context) {
     return json({ ok: true });
   }
 
+  const elapsedMs = Number(form.get('form_elapsed_ms'));
+  if (Number.isFinite(elapsedMs) && elapsedMs >= 0 && elapsedMs < 1500) {
+    return json({ ok: true });
+  }
+
   const name = clean(form.get('name'), 100);
   const email = clean(form.get('email'), 254).toLowerCase();
   const message = clean(form.get('message'), 5000);
+  const turnstileToken = clean(form.get('cf-turnstile-response'), 2048);
 
   if (name.length < 2) {
     return json({ error: 'Please enter your full name.' }, 400);
@@ -71,6 +117,17 @@ export async function onRequestPost(context) {
   }
   if (message.length < 10) {
     return json({ error: 'Please enter a little more detail in your message.' }, 400);
+  }
+  if (!turnstileToken) {
+    return json({ error: 'Please complete the verification and try again.' }, 400);
+  }
+
+  const verification = await verifyTurnstile(request, env, turnstileToken);
+  if (verification.unavailable) {
+    return json({ error: 'Verification is temporarily unavailable. Please try again shortly.' }, 503);
+  }
+  if (!verification.ok) {
+    return json({ error: 'Verification failed. Please refresh the page and try again.' }, 403);
   }
 
   if (!env.CLOUDFLARE_ACCOUNT_ID || !env.EMAIL_API_TOKEN) {

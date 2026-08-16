@@ -1,0 +1,33 @@
+/* Subtle cursor-following depth for the About portrait (Figma node 82:3). */
+@media (hover: hover) and (pointer: fine) {
+  .motion-ready .portrait-placeholder {
+    transform:
+      translate3d(
+        var(--portrait-hover-x, 0px),
+        calc(var(--motion-portrait-front-y, 0px) + var(--portrait-hover-y, 0px)),
+        0
+      )
+      rotate(var(--portrait-hover-rotate, 0deg)) !important;
+    transform-origin: center center;
+    will-change: transform, clip-path;
+  }
+
+  .motion-ready .portrait-backplate {
+    transform:
+      translate3d(
+        var(--portrait-back-hover-x, 0px),
+        calc(var(--motion-portrait-back-y, 0px) + var(--portrait-back-hover-y, 0px)),
+        0
+      )
+      rotate(var(--portrait-back-hover-rotate, 0deg)) !important;
+    transform-origin: center center;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-placeholder,
+  .portrait-backplate {
+    transform: none !important;
+  }
+}

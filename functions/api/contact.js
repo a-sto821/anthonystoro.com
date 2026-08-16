@@ -114,7 +114,7 @@ export async function onRequestPost(context) {
           subject,
           text,
           html,
-          headers: { 'Reply-To': email }
+          reply_to: email
         })
       }
     );

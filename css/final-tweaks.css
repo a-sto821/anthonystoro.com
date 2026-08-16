@@ -10,6 +10,32 @@
   }
 }
 
+/* Keep contact labels available to assistive technology without showing them visually. */
+.contact-form .form-field label {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Use the same Montserrat voice inside the contact fields as the rest of the interface. */
+.contact-form .form-field input,
+.contact-form .form-field textarea {
+  font-family: Montserrat, sans-serif !important;
+  font-weight: 400;
+}
+
+.contact-form .form-field input::placeholder,
+.contact-form .form-field textarea::placeholder {
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+}
+
 /* Draw a restrained underline beneath navigation links on hover/focus. */
 .desktop-nav a,
 .footer-nav a,

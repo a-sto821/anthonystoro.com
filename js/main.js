@@ -10,21 +10,21 @@
   document.head.append(lightboxStyles);
 
   const figmaAssets = {
-    hero: 'https://www.figma.com/api/mcp/asset/5e40bbaf-3521-4926-9e9c-8e03f9498a33.svg',
+    hero: '/assets/graphics/hero-figma.svg',
     digital: [
-      'https://www.figma.com/api/mcp/asset/ae50787e-8a67-41cd-9dc2-663dff78f2ef.png',
-      'https://www.figma.com/api/mcp/asset/8199d4ff-a741-4b88-9602-6cae490f84f6.png',
-      'https://www.figma.com/api/mcp/asset/49d556b4-38c8-4192-ba56-7731493c1c72.png',
-      'https://www.figma.com/api/mcp/asset/e2440d14-6d50-49a4-9a15-800b8bd8ceb5.png'
+      '/assets/images/digital/carlingtech.png',
+      '/assets/images/digital/fuse-holder-selector.png',
+      '/assets/images/digital/v-series-selector.png',
+      '/assets/images/digital/sp-campbell.png'
     ],
     multimedia: [
-      'https://www.figma.com/api/mcp/asset/1b146291-7363-44bc-9328-97df9f42b917.png',
-      'https://www.figma.com/api/mcp/asset/7475f594-ee68-476e-aaf2-0d4b5b059608.png',
-      'https://www.figma.com/api/mcp/asset/21e3f84f-6f0c-4c43-b60b-37cdfff94b96.png',
-      'https://www.figma.com/api/mcp/asset/47af09d1-7f27-40d9-9552-600fcf280644.png'
+      '/assets/images/multimedia/fuse-holder-product-overview.png',
+      '/assets/images/multimedia/carling-china-capabilities.png',
+      '/assets/images/multimedia/window-switch-product-overview.png',
+      '/assets/images/multimedia/cole-hersee-100-year.png'
     ],
-    conexpo: 'https://www.figma.com/api/mcp/asset/b8e3ed09-9760-4c5d-a991-f5bd53057946.png',
-    portrait: 'https://www.figma.com/api/mcp/asset/3792481b-4127-4eba-88f6-d897f94a5b82.png'
+    conexpo: '/assets/images/brand-print/conexpo-trade-show.png',
+    portrait: '/assets/images/about/anthony-portrait.png'
   };
 
   /*

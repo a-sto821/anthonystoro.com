@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   background-image:
-    url("https://www.figma.com/api/mcp/asset/c4b4abac-fcea-4e3e-b056-dd82a228fa87.svg"),
+    url("/assets/graphics/hero-background-layer.svg"),
     radial-gradient(circle at 91% 12%, rgba(161, 207, 244, .36), transparent 30%),
     radial-gradient(circle at 34% 92%, rgba(203, 229, 249, .46), transparent 34%),
     linear-gradient(90deg, #f3f8fc 0%, #f4f8fb 48%, #eaf2f9 100%);
@@ -145,7 +145,7 @@
     max-width: none;
     height: auto;
     aspect-ratio: 334 / 256.923;
-    background-image: url("https://www.figma.com/api/mcp/asset/e182f0c3-c0c2-4aec-814f-7099b95be12f.svg");
+    background-image: url("/assets/graphics/hero-mobile-layer.svg");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;

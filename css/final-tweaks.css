@@ -7,4 +7,21 @@
   .portrait-placeholder img {
     object-position: 20% center !important;
   }
+
+  .work-tabs {
+    justify-content: flex-start !important;
+    gap: 24px !important;
+  }
+
+  #tab-digital,
+  #tab-multimedia,
+  #tab-brand {
+    width: auto !important;
+  }
+
+  #tab-digital::after,
+  #tab-multimedia::after,
+  #tab-brand::after {
+    width: 100% !important;
+  }
 }

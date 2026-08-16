@@ -3,6 +3,13 @@
   object-position: 20% center !important;
 }
 
+/* Make portfolio image hover zoom feel gradual instead of snapping. */
+@media (hover: hover) and (pointer: fine) {
+  .motion-ready .project-media img {
+    transition: transform 720ms cubic-bezier(.16, 1, .3, 1), filter 420ms ease !important;
+  }
+}
+
 @media (max-width: 720px) {
   .portrait-placeholder img {
     object-position: 20% center !important;

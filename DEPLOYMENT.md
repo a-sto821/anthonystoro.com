@@ -8,6 +8,8 @@ This branch contains the responsive portfolio build approved for launch. Case st
 
 The site is deployed from the repository root as static HTML, CSS, and JavaScript. Pages Functions are located in `functions/api/`.
 
+Production branch: `main`.
+
 ## Production assets
 
 All launch-critical Figma and legacy WordPress imagery has been copied into the repository so the production website does not depend on temporary Figma asset URLs or the previous WordPress host.

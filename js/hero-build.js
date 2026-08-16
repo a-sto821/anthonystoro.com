@@ -1,6 +1,7 @@
 (() => {
   const FRAME_WIDTH = 614;
   const FRAME_HEIGHT = 472.307678;
+  const ANIMATION_TIME_SCALE = 1.30;
 
   const shape = (className, x, y, width, height, radius = 0, delay = null) => ({
     className, x, y, width, height, radius, delay
@@ -70,7 +71,9 @@
       element.style.width = `${item.width}px`;
       element.style.height = `${item.height}px`;
       if (item.radius) element.style.borderRadius = `${item.radius}px`;
-      if (item.delay !== null) element.style.setProperty('--hb-delay', `${item.delay}ms`);
+      if (item.delay !== null) {
+        element.style.setProperty('--hb-delay', `${Math.round(item.delay * ANIMATION_TIME_SCALE)}ms`);
+      }
       stage.append(element);
     });
 

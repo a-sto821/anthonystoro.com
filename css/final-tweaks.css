@@ -49,6 +49,14 @@
   display: none;
 }
 
+/* Balance the desktop contact section so the space below the form matches the 80px top padding. */
+@media (min-width: 721px) {
+  .contact-section {
+    min-height: 0 !important;
+    padding: 80px 0 !important;
+  }
+}
+
 /* Draw a restrained underline beneath navigation links on hover/focus. */
 .desktop-nav a,
 .footer-nav a,

@@ -39,6 +39,16 @@
   opacity: 1;
 }
 
+/* Keep the form compact now that the visible field labels are gone. */
+.contact-form {
+  min-height: 0 !important;
+  padding-bottom: 24px !important;
+}
+
+.contact-form .form-status:empty {
+  display: none;
+}
+
 /* Draw a restrained underline beneath navigation links on hover/focus. */
 .desktop-nav a,
 .footer-nav a,

@@ -29,7 +29,7 @@
   background: radial-gradient(circle at 50% 50%, rgba(168, 186, 199, .22) 0%, rgba(209, 219, 224, .10) 62%, rgba(255, 255, 255, 0) 100%);
   opacity: 0;
   transform: scale(.86);
-  transition: opacity 520ms ease 80ms, transform 760ms cubic-bezier(.2,.72,.2,1) 80ms;
+  transition: opacity 676ms ease 104ms, transform 988ms cubic-bezier(.2,.72,.2,1) 104ms;
 }
 
 .hb-backplate {
@@ -38,7 +38,7 @@
   background: rgba(255, 255, 255, .48);
   opacity: 0;
   transform: translate3d(-22px, 8px, 0) scale(.985);
-  transition: opacity 520ms ease 120ms, transform 700ms cubic-bezier(.2,.72,.2,1) 120ms;
+  transition: opacity 676ms ease 156ms, transform 910ms cubic-bezier(.2,.72,.2,1) 156ms;
 }
 
 .hb-core-panel {
@@ -48,7 +48,7 @@
   box-shadow: 0 21.2538px 40.1462px rgba(0, 0, 0, .14);
   opacity: 0;
   transform: translate3d(0, 28px, 0) scale(.985);
-  transition: opacity 540ms ease 160ms, transform 720ms cubic-bezier(.2,.72,.2,1) 160ms;
+  transition: opacity 702ms ease 208ms, transform 936ms cubic-bezier(.2,.72,.2,1) 208ms;
 }
 
 /* Core interface bars */
@@ -59,7 +59,7 @@
   transform-origin: left center;
   opacity: 0;
   transform: scaleX(0);
-  transition: opacity 320ms ease var(--hb-delay), transform 520ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+  transition: opacity 416ms ease var(--hb-delay), transform 676ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
 }
 
 .hb-core-eyebrow { background: rgba(209, 217, 224, .42); }
@@ -74,7 +74,7 @@
   background: rgba(255, 255, 255, .055);
   opacity: 0;
   transform: translate3d(0, 18px, 0) scale(.96);
-  transition: opacity 420ms ease var(--hb-delay), transform 560ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+  transition: opacity 546ms ease var(--hb-delay), transform 728ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
 }
 
 .hb-module-bar { background: rgba(212, 219, 224, .28); }
@@ -86,7 +86,7 @@
   border: 1.18077px solid rgba(51, 59, 66, .08);
   border-radius: 21.2538px;
   opacity: 0;
-  transition: opacity 460ms ease var(--hb-delay), transform 680ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+  transition: opacity 598ms ease var(--hb-delay), transform 884ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
 }
 
 .hb-card-top {
@@ -109,7 +109,7 @@
 .hb-connector {
   background: rgba(51, 61, 71, .15);
   opacity: 0;
-  transition: opacity 220ms ease var(--hb-delay), transform 460ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+  transition: opacity 286ms ease var(--hb-delay), transform 598ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
 }
 
 .hb-connector-h {
@@ -127,7 +127,7 @@
   background: rgba(46, 56, 66, .30);
   opacity: 0;
   transform: scale(.25);
-  transition: opacity 220ms ease var(--hb-delay), transform 420ms cubic-bezier(.18,.88,.3,1.35) var(--hb-delay);
+  transition: opacity 286ms ease var(--hb-delay), transform 546ms cubic-bezier(.18,.88,.3,1.35) var(--hb-delay);
 }
 
 /* Grid details */
@@ -136,7 +136,7 @@
   background: rgba(46, 56, 66, .16);
   opacity: 0;
   transform: translate3d(0, 7px, 0) scale(.35);
-  transition: opacity 320ms ease var(--hb-delay), transform 480ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+  transition: opacity 416ms ease var(--hb-delay), transform 624ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
 }
 
 /* Final assembled state. */

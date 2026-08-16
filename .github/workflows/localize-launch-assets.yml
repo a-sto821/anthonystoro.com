@@ -1,0 +1,68 @@
+name: Localize launch assets
+
+on:
+  push:
+    branches:
+      - phase-1-cloudflare-build
+
+permissions:
+  contents: write
+
+jobs:
+  localize:
+    if: contains(github.event.head_commit.message, '[localize-assets]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out launch branch
+        uses: actions/checkout@v4
+        with:
+          ref: phase-1-cloudflare-build
+          fetch-depth: 0
+
+      - name: Download launch assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/graphics assets/images/digital assets/images/multimedia assets/images/brand-print assets/images/about
+          fetch() { curl -A 'Mozilla/5.0' -fL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 120 "$1" -o "$2"; }
+
+          # Figma-approved hero and portfolio imagery
+          fetch 'https://www.figma.com/api/mcp/asset/5e40bbaf-3521-4926-9e9c-8e03f9498a33.svg' 'assets/graphics/hero-figma.svg'
+          fetch 'https://www.figma.com/api/mcp/asset/c4b4abac-fcea-4e3e-b056-dd82a228fa87.svg' 'assets/graphics/hero-background-layer.svg'
+          fetch 'https://www.figma.com/api/mcp/asset/e182f0c3-c0c2-4aec-814f-7099b95be12f.svg' 'assets/graphics/hero-mobile-layer.svg'
+
+          fetch 'https://www.figma.com/api/mcp/asset/ae50787e-8a67-41cd-9dc2-663dff78f2ef.png' 'assets/images/digital/carlingtech.png'
+          fetch 'https://www.figma.com/api/mcp/asset/8199d4ff-a741-4b88-9602-6cae490f84f6.png' 'assets/images/digital/fuse-holder-selector.png'
+          fetch 'https://www.figma.com/api/mcp/asset/49d556b4-38c8-4192-ba56-7731493c1c72.png' 'assets/images/digital/v-series-selector.png'
+          fetch 'https://www.figma.com/api/mcp/asset/e2440d14-6d50-49a4-9a15-800b8bd8ceb5.png' 'assets/images/digital/sp-campbell.png'
+
+          fetch 'https://www.figma.com/api/mcp/asset/1b146291-7363-44bc-9328-97df9f42b917.png' 'assets/images/multimedia/fuse-holder-product-overview.png'
+          fetch 'https://www.figma.com/api/mcp/asset/7475f594-ee68-476e-aaf2-0d4b5b059608.png' 'assets/images/multimedia/carling-china-capabilities.png'
+          fetch 'https://www.figma.com/api/mcp/asset/21e3f84f-6f0c-4c43-b60b-37cdfff94b96.png' 'assets/images/multimedia/window-switch-product-overview.png'
+          fetch 'https://www.figma.com/api/mcp/asset/47af09d1-7f27-40d9-9552-600fcf280644.png' 'assets/images/multimedia/cole-hersee-100-year.png'
+          fetch 'https://www.figma.com/api/mcp/asset/b8e3ed09-9760-4c5d-a991-f5bd53057946.png' 'assets/images/brand-print/conexpo-trade-show.png'
+          fetch 'https://www.figma.com/api/mcp/asset/3792481b-4127-4eba-88f6-d897f94a5b82.png' 'assets/images/about/anthony-portrait.png'
+
+          # Legacy WordPress imagery must be copied before the apex domain is cut over.
+          fetch 'https://anthonystoro.com/wp-content/uploads/2024/03/16x9-print-cvp-catalog.jpg' 'assets/images/brand-print/littelfuse-transportation-catalog.jpg'
+          fetch 'https://anthonystoro.com/wp-content/uploads/2021/08/carling-100years.jpg' 'assets/images/brand-print/carling-100-years.jpg'
+          fetch 'https://anthonystoro.com/wp-content/uploads/2021/08/arbor-meadows.jpg' 'assets/images/brand-print/arbor-meadows.jpg'
+          fetch 'https://anthonystoro.com/wp-content/uploads/2019/11/little-stuess-book.jpg' 'assets/images/brand-print/little-stuess-book.jpg'
+          fetch 'https://anthonystoro.com/wp-content/uploads/2019/11/wildthings.jpg' 'assets/images/brand-print/logo-designs.jpg'
+
+          # Basic integrity check: every downloaded file must contain data.
+          find assets/graphics assets/images/digital assets/images/multimedia assets/images/brand-print assets/images/about -type f -size 0 -print -quit | grep -q . && { echo 'A downloaded asset is empty.'; exit 1; } || true
+
+      - name: Commit localized assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Project Beam'
+          git config user.email 'anthonystoro@icloud.com'
+          git add assets/graphics assets/images/digital assets/images/multimedia assets/images/brand-print assets/images/about
+          if git diff --cached --quiet; then
+            echo 'No asset changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Localize production website assets [skip ci]'
+          git push origin HEAD:phase-1-cloudflare-build

@@ -6,6 +6,7 @@
   const SITE_KEY = '0x4AAAAAAERpH3QYkdVUXR6N';
   const submitButton = form.querySelector('.submit-button');
   let startedAt = performance.now();
+  let requestSubmitted = false;
 
   const elapsedInput = document.createElement('input');
   elapsedInput.type = 'hidden';
@@ -52,15 +53,19 @@
           : 'Verification is loading. Please try again in a moment.';
         status.classList.add('is-error');
         status.classList.remove('is-success');
+        return;
       }
+
+      requestSubmitted = true;
     },
     true
   );
 
   const observer = new MutationObserver(() => {
-    if (!status.textContent.trim()) return;
+    if (!requestSubmitted || !status.textContent.trim()) return;
     if (!status.classList.contains('is-error') && !status.classList.contains('is-success')) return;
 
+    requestSubmitted = false;
     resetTurnstile();
     if (status.classList.contains('is-success')) {
       startedAt = performance.now();

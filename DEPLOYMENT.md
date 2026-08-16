@@ -16,12 +16,15 @@ All launch-critical Figma and legacy WordPress imagery has been copied into the 
 
 ## Contact form environment
 
-The contact form intentionally avoids client-side CAPTCHA. It uses a honeypot, same-origin enforcement, payload limits, and server-side field validation.
+The contact form uses Cloudflare Turnstile plus a honeypot, same-origin enforcement, payload limits, submission timing, and server-side field validation. Turnstile is validated server-side before any email is sent.
 
-Because this site remains on Cloudflare Pages, email delivery uses Cloudflare Email Service through its REST API. Configure only these two production secrets in the Pages project:
+Because this site remains on Cloudflare Pages, email delivery uses Cloudflare Email Service through its REST API. Configure these production secrets in the Pages project:
 
 - `CLOUDFLARE_ACCOUNT_ID`
 - `EMAIL_API_TOKEN`
+- `TURNSTILE_SECRET_KEY`
+
+The Turnstile site key is public and lives in the client-side contact protection script. The Turnstile secret must remain only in Cloudflare.
 
 The destination is `anthonystoro@icloud.com` and the sender identity is `website@anthonystoro.com`.
 
@@ -30,8 +33,9 @@ Before testing delivery:
 1. Verify `anthonystoro@icloud.com` as a Cloudflare Email Service destination address.
 2. Onboard `anthonystoro.com` for Email Sending.
 3. Create an API token with Email Sending permission and save it as `EMAIL_API_TOKEN`.
-4. Redeploy the Pages project after adding the production secrets.
-5. Submit a real contact-form message and verify delivery and Reply-To behavior.
+4. Save the Turnstile widget secret as `TURNSTILE_SECRET_KEY`.
+5. Redeploy the Pages project after adding the production secrets.
+6. Submit a real contact-form message and verify delivery and Reply-To behavior.
 
 ## Launch checklist
 

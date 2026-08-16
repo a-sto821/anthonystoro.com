@@ -181,8 +181,10 @@
 
 .image-lightbox-nav {
   top: 50%;
+  box-sizing: border-box;
   width: 52px;
   height: 52px;
+  padding: 0 0 4px;
   transform: translateY(-50%);
   border-radius: 999px;
   display: grid;

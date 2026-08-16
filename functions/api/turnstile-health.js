@@ -1,4 +1,5 @@
 const VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const PUBLIC_SITE_KEY = '0x4AAAAAAERpH3QYkdVUXR6N';
 
 const json = (body, status = 200) => Response.json(body, {
   status,
@@ -9,10 +10,22 @@ const json = (body, status = 200) => Response.json(body, {
 });
 
 export async function onRequestGet({ env }) {
-  const secretConfigured = Boolean(env.TURNSTILE_SECRET_KEY);
+  const rawSecret = String(env.TURNSTILE_SECRET_KEY || '');
+  const secretConfigured = Boolean(rawSecret);
+  const secretLength = rawSecret.length;
+  const matchesPublicSiteKey = rawSecret === PUBLIC_SITE_KEY;
+  const hasOuterWhitespace = rawSecret !== rawSecret.trim();
+  const hasWrappingQuotes =
+    (rawSecret.startsWith('"') && rawSecret.endsWith('"')) ||
+    (rawSecret.startsWith("'") && rawSecret.endsWith("'"));
+
   if (!secretConfigured) {
     return json({
       secretConfigured: false,
+      secretLength: 0,
+      matchesPublicSiteKey: false,
+      hasOuterWhitespace: false,
+      hasWrappingQuotes: false,
       siteverifyReachable: false,
       siteverifyStatus: null,
       errorCodes: []
@@ -20,7 +33,7 @@ export async function onRequestGet({ env }) {
   }
 
   const body = new FormData();
-  body.append('secret', env.TURNSTILE_SECRET_KEY);
+  body.append('secret', rawSecret);
   body.append('response', 'turnstile-health-check');
 
   try {
@@ -32,6 +45,10 @@ export async function onRequestGet({ env }) {
     const result = await response.json().catch(() => null);
     return json({
       secretConfigured: true,
+      secretLength,
+      matchesPublicSiteKey,
+      hasOuterWhitespace,
+      hasWrappingQuotes,
       siteverifyReachable: Boolean(result),
       siteverifyStatus: response.status,
       success: result?.success === true,
@@ -40,6 +57,10 @@ export async function onRequestGet({ env }) {
   } catch (error) {
     return json({
       secretConfigured: true,
+      secretLength,
+      matchesPublicSiteKey,
+      hasOuterWhitespace,
+      hasWrappingQuotes,
       siteverifyReachable: false,
       siteverifyStatus: null,
       errorCodes: ['fetch-failed']

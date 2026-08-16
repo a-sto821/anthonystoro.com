@@ -125,6 +125,7 @@
     let framePending = false;
 
     const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const isSafari = /^((?!chrome|chromium|android|crios|fxios).)*safari/i.test(navigator.userAgent);
 
     if (hero && hasFinePointer) {
       hero.addEventListener('pointermove', (event) => {
@@ -172,7 +173,11 @@
         const center = (rect.top + rect.height / 2) / viewportHeight - 0.5;
         const amplitude = isMobile ? 2.5 : 6;
         const y = clamp(center * -amplitude * 2, -amplitude, amplitude);
-        media.style.setProperty('--motion-media-y', `${y}px`);
+        // Safari can soften detailed raster images when a composited parent sits on a
+        // fractional pixel. Snap only Safari's tiny scroll-parallax offset to whole
+        // pixels so UI screenshots stay crisp without changing the Chrome motion.
+        const renderedY = isSafari ? Math.round(y) : y;
+        media.style.setProperty('--motion-media-y', `${renderedY}px`);
       });
 
       if (aboutSection) {

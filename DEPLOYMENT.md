@@ -2,13 +2,15 @@
 
 ## Phase 1
 
-This branch contains the responsive portfolio build approved in Figma. Case study lightboxes are intentionally deferred to Phase 2.
+This branch contains the responsive portfolio build approved for launch. Case study lightboxes are intentionally deferred to Phase 2.
 
 ## Cloudflare Pages
 
-Connect this repository to Cloudflare Pages and use the repository root as the site output. No build command is required for the static HTML, CSS, and JavaScript.
+The site is deployed from the repository root as static HTML, CSS, and JavaScript. Pages Functions are located in `functions/api/`.
 
-Pages Functions are located in `functions/api/`.
+## Production assets
+
+All launch-critical Figma and legacy WordPress imagery has been copied into the repository so the production website does not depend on temporary Figma asset URLs or the previous WordPress host.
 
 ## Environment variables
 
@@ -25,13 +27,13 @@ The Turnstile secret, Email API token, and account ID must be stored as secrets 
 
 ## Contact form
 
-The form uses Cloudflare Turnstile, a hidden honeypot, server-side field validation, and Cloudflare Email Service.
+The form uses Cloudflare Turnstile, a hidden honeypot, server-side field validation, and email delivery. Email delivery and Turnstile still require production environment configuration and an end-to-end test.
 
-## Before DNS cutover
+## Launch checklist
 
-1. Replace the temporary About image treatment with the approved portrait asset.
-2. Localize the Brand + Print images that still load from the current WordPress site.
-3. Test desktop and mobile layouts on the Cloudflare preview URL.
-4. Test all category tabs, YouTube links, navigation, Turnstile, and email delivery.
-5. Run final accessibility, performance, and SEO checks.
-6. Only after approval, point `anthonystoro.com` to the new Cloudflare deployment.
+1. Confirm the final Cloudflare Pages deployment succeeds.
+2. Confirm desktop, mobile, and tablet layouts on the Pages URL.
+3. Merge the approved build into `main`.
+4. Attach `anthonystoro.com` and `www.anthonystoro.com` to the Cloudflare Pages project and verify HTTPS.
+5. Configure and test the contact form environment variables.
+6. Run final accessibility, performance, and SEO checks after the custom domain is live.

@@ -27,13 +27,16 @@
 .contact-form .form-field input,
 .contact-form .form-field textarea {
   font-family: Montserrat, sans-serif !important;
-  font-weight: 400;
+  font-weight: 500;
+  color: #34383f;
 }
 
 .contact-form .form-field input::placeholder,
 .contact-form .form-field textarea::placeholder {
   font-family: Montserrat, sans-serif;
-  font-weight: 400;
+  font-weight: 500;
+  color: #747b86;
+  opacity: 1;
 }
 
 /* Draw a restrained underline beneath navigation links on hover/focus. */

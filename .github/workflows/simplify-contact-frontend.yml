@@ -1,0 +1,64 @@
+name: Simplify contact frontend
+
+on:
+  push:
+    branches:
+      - simplify-contact-form
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: contains(github.event.head_commit.message, '[simplify-contact]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: simplify-contact-form
+          fetch-depth: 0
+
+      - name: Remove Turnstile client code
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          index = Path('index.html')
+          text = index.read_text()
+          text = text.replace('  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>\n', '')
+          text = text.replace('          <div id="turnstile-container" class="turnstile-container" aria-live="polite"></div>\n', '')
+          index.write_text(text)
+
+          main = Path('js/main.js')
+          text = main.read_text()
+          text = re.sub(
+              r"  const turnstileContainer = document\.querySelector\('#turnstile-container'\);\n  let turnstileWidgetId = null;\n\n.*?\n  form\?\.addEventListener\('submit',",
+              "  form?.addEventListener('submit',",
+              text,
+              flags=re.S,
+          )
+          text = text.replace("      if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);\n", '')
+          text = text.replace("\n  loadTurnstile();\n})();", "\n})();")
+          main.write_text(text)
+
+          config = Path('functions/api/config.js')
+          if config.exists():
+              config.unlink()
+          PY
+          node --check js/main.js
+          grep -R -n "turnstile" index.html js/main.js functions/api && exit 1 || true
+
+      - name: Commit cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/simplify-contact-frontend.yml
+          git config user.name 'Project Beam'
+          git config user.email 'anthonystoro@icloud.com'
+          git add -A
+          git commit -m 'Remove Turnstile from contact form [skip ci]'
+          git push origin HEAD:simplify-contact-form

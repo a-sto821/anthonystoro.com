@@ -305,6 +305,13 @@
 
   const form = document.querySelector('#contact-form');
   const status = document.querySelector('#form-status');
+
+  const setStatus = (message, type = '') => {
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('is-error', type === 'error');
+    status.classList.toggle('is-success', type === 'success');
+  };
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
     setStatus('');

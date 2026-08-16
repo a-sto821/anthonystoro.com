@@ -1,0 +1,10 @@
+/* Small production corrections that should win over dynamically loaded sync styles. */
+.portrait-placeholder img {
+  object-position: 20% center !important;
+}
+
+@media (max-width: 720px) {
+  .portrait-placeholder img {
+    object-position: 20% center !important;
+  }
+}

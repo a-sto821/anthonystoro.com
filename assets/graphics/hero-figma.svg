@@ -1,0 +1,87 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="614" height="472.308" viewBox="0 0 614 472.308" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Hero / Digital Systems Graphic">
+<circle id="Ambient glow" cx="342.423" cy="236.154" r="212.538" fill="url(#paint0_radial_0_6)"/>
+<g id="Backplate">
+<rect x="80.2923" y="139.331" width="389.654" height="265.673" rx="25.9769" fill="white" fill-opacity="0.48"/>
+<rect x="80.8827" y="139.921" width="388.473" height="264.492" rx="25.3865" stroke="#2E363D" stroke-opacity="0.1" stroke-width="1.18077"/>
+</g>
+<g id="Core panel" filter="url(#filter0_d_0_6)">
+<rect x="177.115" y="85.0154" width="389.654" height="283.385" rx="28.3385" fill="#131618"/>
+<rect x="177.706" y="85.6058" width="388.473" height="282.204" rx="27.7481" stroke="#383D45" stroke-opacity="0.75" stroke-width="1.18077"/>
+</g>
+<rect id="Core eyebrow" x="214.9" y="120.438" width="108.631" height="9.44615" rx="4.72308" fill="#D1D9E0" fill-opacity="0.42"/>
+<rect id="Core line 1" x="214.9" y="155.862" width="281.023" height="11.8077" rx="5.90385" fill="#EBF0F2" fill-opacity="0.82"/>
+<rect id="Core line 2" x="214.9" y="181.838" width="217.262" height="9.44615" rx="4.72308" fill="#BAC4CC" fill-opacity="0.34"/>
+<rect id="Core line 3" x="214.9" y="205.454" width="252.685" height="9.44615" rx="4.72308" fill="#BAC4CC" fill-opacity="0.24"/>
+<g id="Module 1">
+<rect x="214.9" y="250.323" width="87.3769" height="63.7615" rx="14.1692" fill="white" fill-opacity="0.055"/>
+<rect x="215.49" y="250.913" width="86.1962" height="62.5808" rx="13.5788" stroke="white" stroke-opacity="0.09" stroke-width="1.18077"/>
+</g>
+<rect id="Module bar 1" x="231.431" y="268.035" width="54.3154" height="7.08462" rx="3.54231" fill="#D4DBE0" fill-opacity="0.28"/>
+<rect id="Module dot 1" x="231.431" y="286.927" width="21.2538" height="7.08462" rx="3.54231" fill="#D4DBE0" fill-opacity="0.16"/>
+<g id="Module 2">
+<rect x="315.265" y="250.323" width="87.3769" height="63.7615" rx="14.1692" fill="white" fill-opacity="0.055"/>
+<rect x="315.856" y="250.913" width="86.1962" height="62.5808" rx="13.5788" stroke="white" stroke-opacity="0.09" stroke-width="1.18077"/>
+</g>
+<rect id="Module bar 2" x="331.796" y="268.035" width="54.3154" height="7.08462" rx="3.54231" fill="#D4DBE0" fill-opacity="0.28"/>
+<rect id="Module dot 2" x="331.796" y="286.927" width="21.2538" height="7.08462" rx="3.54231" fill="#D4DBE0" fill-opacity="0.16"/>
+<g id="Module 3">
+<rect x="415.631" y="250.323" width="87.3769" height="63.7615" rx="14.1692" fill="white" fill-opacity="0.055"/>
+<rect x="416.221" y="250.913" width="86.1962" height="62.5808" rx="13.5788" stroke="white" stroke-opacity="0.09" stroke-width="1.18077"/>
+</g>
+<rect id="Module bar 3" x="432.162" y="268.035" width="54.3154" height="7.08462" rx="3.54231" fill="#D4DBE0" fill-opacity="0.28"/>
+<rect id="Module dot 3" x="432.162" y="286.927" width="21.2538" height="7.08462" rx="3.54231" fill="#D4DBE0" fill-opacity="0.16"/>
+<g id="Floating card / Top">
+<rect x="21.2538" y="51.9538" width="184.2" height="108.631" rx="21.2538" fill="white" fill-opacity="0.9"/>
+<rect x="21.8442" y="52.5442" width="183.019" height="107.45" rx="20.6635" stroke="#333B42" stroke-opacity="0.08" stroke-width="1.18077"/>
+</g>
+<rect id="Top card line 1" x="49.5923" y="82.6538" width="103.908" height="9.44615" rx="4.72308" fill="#292E33" fill-opacity="0.72"/>
+<rect id="Top card line 2" x="49.5923" y="107.45" width="127.523" height="7.08462" rx="3.54231" fill="#292E33" fill-opacity="0.18"/>
+<rect id="Top card accent" x="49.5923" y="129.885" width="40.1462" height="7.08462" rx="3.54231" fill="#385C75" fill-opacity="0.28"/>
+<g id="Floating card / Bottom">
+<rect x="356.592" y="344.785" width="200.731" height="103.908" rx="21.2538" fill="white" fill-opacity="0.92"/>
+<rect x="357.183" y="345.375" width="199.55" height="102.727" rx="20.6635" stroke="#333B42" stroke-opacity="0.08" stroke-width="1.18077"/>
+</g>
+<rect id="Bottom card line 1" x="384.931" y="375.485" width="132.246" height="9.44615" rx="4.72308" fill="#292E33" fill-opacity="0.66"/>
+<rect id="Bottom card line 2" x="384.931" y="401.462" width="94.4615" height="7.08462" rx="3.54231" fill="#292E33" fill-opacity="0.18"/>
+<rect id="Connector A h" x="178.296" y="109.812" width="40.1462" height="1.18077" fill="#333D47" fill-opacity="0.15"/>
+<rect id="Connector A v" x="178.296" y="109.812" width="1.18077" height="61.4" fill="#333D47" fill-opacity="0.15"/>
+<rect id="Connector B h" x="531.346" y="319.988" width="33.0615" height="1.18077" fill="#333D47" fill-opacity="0.15"/>
+<rect id="Connector B v" x="563.227" y="319.988" width="1.18077" height="51.9538" fill="#333D47" fill-opacity="0.15"/>
+<circle id="Connection node" cx="178.296" cy="108.631" r="4.72308" fill="#2E3842" fill-opacity="0.3"/>
+<circle id="Connection node_2" cx="216.081" cy="110.992" r="4.72308" fill="#2E3842" fill-opacity="0.3"/>
+<circle id="Connection node_3" cx="530.165" cy="319.988" r="4.72308" fill="#2E3842" fill-opacity="0.3"/>
+<circle id="Connection node_4" cx="563.227" cy="371.942" r="4.72308" fill="#2E3842" fill-opacity="0.3"/>
+<circle id="Grid dot" cx="66.1231" cy="377.846" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_2" cx="87.3769" cy="377.846" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_3" cx="108.631" cy="377.846" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_4" cx="129.885" cy="377.846" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_5" cx="151.138" cy="377.846" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_6" cx="66.1231" cy="399.1" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_7" cx="87.3769" cy="399.1" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_8" cx="108.631" cy="399.1" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_9" cx="129.885" cy="399.1" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_10" cx="151.138" cy="399.1" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_11" cx="66.1231" cy="420.354" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_12" cx="87.3769" cy="420.354" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_13" cx="108.631" cy="420.354" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_14" cx="129.885" cy="420.354" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+<circle id="Grid dot_15" cx="151.138" cy="420.354" r="2.36154" fill="#2E3842" fill-opacity="0.16"/>
+</g>
+<defs>
+<filter id="filter0_d_0_6" x="136.969" y="66.1231" width="469.946" height="363.677" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="21.2538"/>
+<feGaussianBlur stdDeviation="20.0731"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_6"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_6" result="shape"/>
+</filter>
+<radialGradient id="paint0_radial_0_6" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(342.423 236.154) scale(212.538)">
+<stop stop-color="#A8BAC7" stop-opacity="0.22"/>
+<stop offset="0.62" stop-color="#D1DBE0" stop-opacity="0.1"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

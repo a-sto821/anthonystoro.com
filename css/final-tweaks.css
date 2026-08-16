@@ -10,6 +10,51 @@
   }
 }
 
+/* Draw a restrained underline beneath navigation links on hover/focus. */
+.desktop-nav a,
+.footer-nav a,
+.mobile-menu a {
+  position: relative;
+}
+
+.desktop-nav a::after,
+.footer-nav a::after,
+.mobile-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: .9;
+  transition: transform 340ms cubic-bezier(.16, 1, .3, 1);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .desktop-nav a:hover::after,
+  .footer-nav a:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.desktop-nav a:focus-visible::after,
+.footer-nav a:focus-visible::after,
+.mobile-menu a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-nav a::after,
+  .footer-nav a::after,
+  .mobile-menu a::after {
+    transition: none;
+  }
+}
+
 @media (max-width: 720px) {
   .portrait-placeholder img {
     object-position: 20% center !important;
@@ -30,5 +75,11 @@
   #tab-multimedia::after,
   #tab-brand::after {
     width: 100% !important;
+  }
+
+  .mobile-menu a::after {
+    right: auto;
+    width: max-content;
+    min-width: 0;
   }
 }

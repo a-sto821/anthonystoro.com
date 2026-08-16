@@ -1,0 +1,229 @@
+/* Layered build animation for Figma node 85:2: Hero / Digital Systems Graphic. */
+.hero-build-wrapper {
+  pointer-events: none;
+  overflow: visible;
+  background-image: none !important;
+}
+
+.hero-build-stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 614px;
+  height: 472.307678px;
+  transform: scale(var(--hero-build-scale, 1));
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.hero-build-shape {
+  position: absolute;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Foundation */
+.hb-glow {
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(168, 186, 199, .22) 0%, rgba(209, 219, 224, .10) 62%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  transform: scale(.86);
+  transition: opacity 520ms ease 80ms, transform 760ms cubic-bezier(.2,.72,.2,1) 80ms;
+}
+
+.hb-backplate {
+  border: 1.18077px solid rgba(46, 54, 61, .10);
+  border-radius: 25.9769px;
+  background: rgba(255, 255, 255, .48);
+  opacity: 0;
+  transform: translate3d(-22px, 8px, 0) scale(.985);
+  transition: opacity 520ms ease 120ms, transform 700ms cubic-bezier(.2,.72,.2,1) 120ms;
+}
+
+.hb-core-panel {
+  border: 1.18077px solid rgba(56, 61, 69, .75);
+  border-radius: 28.3385px;
+  background: rgb(19, 22, 24);
+  box-shadow: 0 21.2538px 40.1462px rgba(0, 0, 0, .14);
+  opacity: 0;
+  transform: translate3d(0, 28px, 0) scale(.985);
+  transition: opacity 540ms ease 160ms, transform 720ms cubic-bezier(.2,.72,.2,1) 160ms;
+}
+
+/* Core interface bars */
+.hb-core-bar,
+.hb-card-bar,
+.hb-module-bar,
+.hb-module-dot {
+  transform-origin: left center;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 320ms ease var(--hb-delay), transform 520ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+}
+
+.hb-core-eyebrow { background: rgba(209, 217, 224, .42); }
+.hb-core-line-1 { background: rgba(235, 240, 242, .82); }
+.hb-core-line-2 { background: rgba(186, 196, 204, .34); }
+.hb-core-line-3 { background: rgba(186, 196, 204, .24); }
+
+/* Modules */
+.hb-module {
+  border: 1.18077px solid rgba(255, 255, 255, .09);
+  border-radius: 14.1692px;
+  background: rgba(255, 255, 255, .055);
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(.96);
+  transition: opacity 420ms ease var(--hb-delay), transform 560ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+}
+
+.hb-module-bar { background: rgba(212, 219, 224, .28); }
+.hb-module-dot { background: rgba(212, 219, 224, .16); }
+
+/* Floating cards */
+.hb-card-top,
+.hb-card-bottom {
+  border: 1.18077px solid rgba(51, 59, 66, .08);
+  border-radius: 21.2538px;
+  opacity: 0;
+  transition: opacity 460ms ease var(--hb-delay), transform 680ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+}
+
+.hb-card-top {
+  background: rgba(255, 255, 255, .90);
+  transform: translate3d(-28px, -22px, 0) scale(.97);
+}
+
+.hb-card-bottom {
+  background: rgba(255, 255, 255, .92);
+  transform: translate3d(28px, 22px, 0) scale(.97);
+}
+
+.hb-top-line-1 { background: rgba(41, 46, 51, .72); }
+.hb-top-line-2 { background: rgba(41, 46, 51, .18); }
+.hb-top-accent { background: rgba(56, 92, 117, .28); }
+.hb-bottom-line-1 { background: rgba(41, 46, 51, .66); }
+.hb-bottom-line-2 { background: rgba(41, 46, 51, .18); }
+
+/* Connector paths */
+.hb-connector {
+  background: rgba(51, 61, 71, .15);
+  opacity: 0;
+  transition: opacity 220ms ease var(--hb-delay), transform 460ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+}
+
+.hb-connector-h {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.hb-connector-v {
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+.hb-node {
+  border-radius: 50%;
+  background: rgba(46, 56, 66, .30);
+  opacity: 0;
+  transform: scale(.25);
+  transition: opacity 220ms ease var(--hb-delay), transform 420ms cubic-bezier(.18,.88,.3,1.35) var(--hb-delay);
+}
+
+/* Grid details */
+.hb-grid-dot {
+  border-radius: 50%;
+  background: rgba(46, 56, 66, .16);
+  opacity: 0;
+  transform: translate3d(0, 7px, 0) scale(.35);
+  transition: opacity 320ms ease var(--hb-delay), transform 480ms cubic-bezier(.2,.72,.2,1) var(--hb-delay);
+}
+
+/* Final assembled state. */
+.hero-build-started .hb-glow,
+.hero-build-started .hb-backplate,
+.hero-build-started .hb-core-panel,
+.hero-build-started .hb-module,
+.hero-build-started .hb-card-top,
+.hero-build-started .hb-card-bottom,
+.hero-build-started .hb-node,
+.hero-build-started .hb-grid-dot {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.hero-build-started .hb-core-bar,
+.hero-build-started .hb-card-bar,
+.hero-build-started .hb-module-bar,
+.hero-build-started .hb-module-dot,
+.hero-build-started .hb-connector-h,
+.hero-build-started .hb-connector-v {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/*
+  Mobile treatment: preserve the same build choreography, but shift the artwork
+  into a lighter blue-gray palette so it can sit behind the hero copy without
+  competing with legibility. Desktop intentionally retains the darker Figma look.
+*/
+@media (max-width: 720px) {
+  .hb-glow {
+    background: radial-gradient(circle at 50% 50%, rgba(149, 185, 211, .18) 0%, rgba(206, 224, 237, .10) 62%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  .hb-backplate {
+    background: rgba(255, 255, 255, .34);
+    border-color: rgba(73, 96, 113, .08);
+    transform: translate3d(-14px, 5px, 0) scale(.99);
+  }
+
+  .hb-core-panel {
+    background: rgba(83, 112, 132, .095);
+    border-color: rgba(64, 91, 111, .13);
+    box-shadow: 0 12px 28px rgba(76, 101, 119, .035);
+    transform: translate3d(0, 18px, 0) scale(.99);
+  }
+
+  .hb-core-eyebrow { background: rgba(75, 103, 123, .19); }
+  .hb-core-line-1 { background: rgba(69, 96, 116, .25); }
+  .hb-core-line-2 { background: rgba(75, 103, 123, .16); }
+  .hb-core-line-3 { background: rgba(75, 103, 123, .12); }
+
+  .hb-module {
+    background: rgba(80, 108, 129, .045);
+    border-color: rgba(70, 98, 119, .10);
+    transform: translate3d(0, 12px, 0) scale(.975);
+  }
+
+  .hb-module-bar { background: rgba(69, 96, 116, .16); }
+  .hb-module-dot { background: rgba(69, 96, 116, .10); }
+
+  .hb-card-top,
+  .hb-card-bottom {
+    background: rgba(255, 255, 255, .54);
+    border-color: rgba(70, 94, 111, .07);
+    box-shadow: 0 8px 24px rgba(76, 101, 119, .025);
+  }
+
+  .hb-card-top { transform: translate3d(-18px, -14px, 0) scale(.985); }
+  .hb-card-bottom { transform: translate3d(18px, 14px, 0) scale(.985); }
+
+  .hb-top-line-1,
+  .hb-bottom-line-1 { background: rgba(57, 80, 98, .27); }
+  .hb-top-line-2,
+  .hb-bottom-line-2 { background: rgba(57, 80, 98, .10); }
+  .hb-top-accent { background: rgba(66, 111, 143, .18); }
+
+  .hb-connector { background: rgba(70, 98, 119, .10); }
+  .hb-node { background: rgba(67, 95, 116, .16); }
+  .hb-grid-dot { background: rgba(67, 95, 116, .11); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-build-wrapper .hero-build-shape {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

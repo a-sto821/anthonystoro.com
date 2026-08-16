@@ -1,0 +1,268 @@
+/* Portfolio lightboxes for images and video */
+#panel-digital .project-media.lightbox-trigger,
+#panel-brand .project-media.lightbox-trigger {
+  cursor: zoom-in;
+}
+
+#panel-digital .project-media.lightbox-trigger:focus-visible,
+#panel-brand .project-media.lightbox-trigger:focus-visible,
+#panel-multimedia .video-card:focus-visible {
+  outline: 2px solid #386e9a;
+  outline-offset: 4px;
+}
+
+#panel-multimedia .video-card {
+  cursor: pointer;
+}
+
+/*
+  Keep portfolio thumbnails on a composited layer even before hover.
+  Chrome can anti-alias rounded image edges differently when a transform
+  starts on hover; keeping the layer active removes that jagged-to-smooth jump.
+*/
+.project-media {
+  clip-path: inset(0 round 14px);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.project-media img {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Match the tighter Carling China crop used in the approved Figma layout. */
+#panel-multimedia .project-card:nth-child(2) .project-media img {
+  transform: translateZ(0) scale(1.27);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #panel-digital .project-media.lightbox-trigger:hover img,
+  #panel-brand .project-media.lightbox-trigger:hover img,
+  #panel-multimedia .video-card:hover .project-media img {
+    transform: translateZ(0) scale(1.012);
+  }
+
+  #panel-multimedia .project-card:nth-child(2):hover .project-media img {
+    transform: translateZ(0) scale(1.285);
+  }
+}
+
+.image-lightbox,
+.video-lightbox {
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 24px 80px;
+  background: rgba(10, 12, 14, 0.97);
+  color: #fff;
+  overflow: hidden;
+}
+
+.image-lightbox::backdrop,
+.video-lightbox::backdrop {
+  background: transparent;
+}
+
+.image-lightbox[open],
+.video-lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-lightbox-stage,
+.video-lightbox-stage {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+/*
+  Every portfolio image uses the same 16:9 lightbox frame.
+  object-fit: contain preserves the full artwork without stretching or cropping.
+*/
+.image-lightbox-image {
+  display: block;
+  width: min(1200px, calc(100vw - 180px), calc(177.7778vh - 224px));
+  height: auto;
+  max-height: calc(100vh - 126px);
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  object-position: center;
+  background: #111416;
+  border-radius: 18px;
+  clip-path: inset(0 round 18px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+}
+
+.video-lightbox-player {
+  width: min(1200px, calc(100vw - 180px), calc(177.7778vh - 224px));
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+}
+
+.video-lightbox-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.image-lightbox-caption,
+.video-lightbox-caption {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font: 600 13px/1.4 Montserrat, sans-serif;
+  letter-spacing: 0.2px;
+  text-align: center;
+}
+
+.image-lightbox-close,
+.image-lightbox-nav {
+  position: fixed;
+  z-index: 3;
+  border: 0;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.image-lightbox-close:hover,
+.image-lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.image-lightbox-close:focus-visible,
+.image-lightbox-nav:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.image-lightbox-close {
+  top: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+}
+
+.image-lightbox-close::before,
+.image-lightbox-close::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 23px;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.image-lightbox-close::before { transform: rotate(45deg); }
+.image-lightbox-close::after { transform: rotate(-45deg); }
+
+.image-lightbox-nav {
+  top: 50%;
+  width: 52px;
+  height: 52px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font: 400 38px/1 Arial, sans-serif;
+}
+
+.image-lightbox-prev { left: 24px; }
+.image-lightbox-next { right: 24px; }
+
+.image-lightbox-nav[hidden] {
+  display: none;
+}
+
+.image-lightbox-nav:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.image-lightbox-close:active {
+  transform: scale(0.96);
+}
+
+/* Brand + Print cards stay consistently cropped, never stretched. */
+#panel-brand .project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 720px) {
+  .image-lightbox,
+  .video-lightbox {
+    padding: 64px 12px 24px;
+  }
+
+  .image-lightbox-close {
+    top: 14px;
+    right: 14px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .image-lightbox-close::before,
+  .image-lightbox-close::after {
+    left: 12px;
+    top: 21px;
+  }
+
+  .image-lightbox-nav {
+    width: 44px;
+    height: 44px;
+    font-size: 32px;
+  }
+
+  .image-lightbox-prev { left: 8px; }
+  .image-lightbox-next { right: 8px; }
+
+  .image-lightbox-image,
+  .video-lightbox-player {
+    width: calc(100vw - 32px);
+    max-height: calc(100vh - 124px);
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+  }
+
+  .image-lightbox-image {
+    clip-path: inset(0 round 14px);
+  }
+
+  .image-lightbox-caption,
+  .video-lightbox-caption {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-lightbox-close,
+  .image-lightbox-nav,
+  .project-media img {
+    transition: none !important;
+  }
+}

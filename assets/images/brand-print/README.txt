@@ -1,0 +1,1 @@
+High resolution Brand + Print portfolio assets supplied by Anthony Storo. JPEGs are used directly for portfolio cards and image lightboxes.

@@ -18,6 +18,19 @@
 
   mobileMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
 
+  // Route portfolio case-study links through one literal root-level HTML file.
+  // This avoids Cloudflare Pages directory-routing ambiguity for /work/<slug>/ URLs.
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest('a[href]');
+    if (!link || link.classList.contains('video-play-link')) return;
+    const href = link.getAttribute('href') || '';
+    const match = href.match(/^\/work\/([^/]+)\/?$/);
+    if (!match) return;
+    event.preventDefault();
+    window.location.assign(`/case-study.html?project=${encodeURIComponent(match[1])}`);
+  });
+
   const tabs = [...document.querySelectorAll('[role="tab"]')];
   const panels = [...document.querySelectorAll('[role="tabpanel"]')];
 

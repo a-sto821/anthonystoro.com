@@ -1,0 +1,1 @@
+Mobile case-study polish: external CTA arrows are normalized to an SVG icon so iOS does not render them as emoji. Footer layout is forced into the approved mobile Figma order (logo, navigation, copyright) using normal document flow to prevent copyright text from escaping into project navigation.

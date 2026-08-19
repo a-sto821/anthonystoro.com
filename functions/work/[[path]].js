@@ -15,7 +15,7 @@ const VALID_PROJECTS = new Set([
   'little-stuess-book'
 ]);
 
-export async function onRequest({ request }) {
+export async function onRequest({ request, env }) {
   const url = new URL(request.url);
   const rest = url.pathname.replace(/^\/work\/?/, '');
   const slug = rest.split('/').filter(Boolean)[0] || '';
@@ -24,7 +24,6 @@ export async function onRequest({ request }) {
     return Response.redirect(new URL('/#work', url.origin), 302);
   }
 
-  const destination = new URL('/', url.origin);
-  destination.searchParams.set('project', slug);
-  return Response.redirect(destination, 302);
+  // Serve the shared case-study shell while preserving the clean /work/<slug>/ URL.
+  return env.ASSETS.fetch(new URL('/case-study.html', url.origin));
 }

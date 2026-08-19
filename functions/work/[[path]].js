@@ -24,7 +24,7 @@ export async function onRequest({ request }) {
     return Response.redirect(new URL('/#work', url.origin), 302);
   }
 
-  const destination = new URL('/case-study.html', url.origin);
+  const destination = new URL('/', url.origin);
   destination.searchParams.set('project', slug);
   return Response.redirect(destination, 302);
 }

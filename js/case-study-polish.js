@@ -11,6 +11,12 @@
     return match ? match[1] : '';
   };
 
+  const getCurrentProject = () => {
+    const pathMatch = window.location.pathname.match(/^\/work\/([^/]+)\/?$/);
+    if (pathMatch) return pathMatch[1];
+    return new URLSearchParams(window.location.search).get('project') || '';
+  };
+
   const getYouTubeId = (href) => {
     try {
       const url = new URL(href, window.location.href);
@@ -39,7 +45,7 @@
       if (video && playLink) playLink.href = video;
     });
 
-    const project = new URLSearchParams(window.location.search).get('project');
+    const project = getCurrentProject();
     const correctedVideo = videoByProject[project];
     if (correctedVideo) {
       const videoCta = document.querySelector('.case-video-cta');
@@ -58,7 +64,7 @@
     const trigger = event.target.closest('.case-video-target, .case-video-cta');
     if (!trigger) return;
 
-    const project = new URLSearchParams(window.location.search).get('project');
+    const project = getCurrentProject();
     const correctedVideo = videoByProject[project];
     if (!correctedVideo) return;
 

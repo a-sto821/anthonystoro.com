@@ -13,6 +13,25 @@
 }
 
 @media (max-width: 720px) {
+  /* Video case studies use the still as the hero itself, not the inset device treatment. */
+  .case-study-body.case-study-video-project .case-video-target.case-stage-main {
+    padding: 0 !important;
+    background: #f3f4f5 !important;
+  }
+
+  .case-study-body.case-study-video-project .case-video-target.case-stage-main .case-image {
+    width: 100% !important;
+    height: 160px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 0 !important;
+  }
+
+  .case-study-body.case-study-video-project .case-video-target .case-play {
+    left: 50% !important;
+    top: 50% !important;
+  }
+
   .case-study-body .site-footer {
     position: relative !important;
     display: block !important;

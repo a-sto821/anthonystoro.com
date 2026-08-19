@@ -1,4 +1,43 @@
 (() => {
+  const projectParam = new URLSearchParams(window.location.search).get('project');
+
+  if (projectParam) {
+    document.body.dataset.caseStudy = projectParam;
+    document.body.classList.add('case-study-body');
+
+    // Cloudflare currently serves index.html for frontend routes. In project mode,
+    // turn that same document into the approved case-study shell instead of the homepage.
+    document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
+      const href = link.getAttribute('href') || '';
+      if (/hero-build|figma-sync|lightbox|work-card-hover|portrait-hover/.test(href)) link.remove();
+    });
+
+    if (!document.querySelector('link[href^="/css/case-study.css"]')) {
+      const caseStyles = document.createElement('link');
+      caseStyles.rel = 'stylesheet';
+      caseStyles.href = '/css/case-study.css?v=3';
+      document.head.append(caseStyles);
+    }
+
+    const brand = document.querySelector('.brand');
+    if (brand) brand.setAttribute('href', '/');
+    document.querySelectorAll('a[href="#work"]').forEach((link) => link.setAttribute('href', '/#work'));
+    document.querySelectorAll('a[href="#about"]').forEach((link) => link.setAttribute('href', '/#about'));
+    document.querySelectorAll('a[href="#contact"]').forEach((link) => link.setAttribute('href', '/#contact'));
+
+    const main = document.querySelector('#main');
+    if (main) {
+      main.className = 'case-study-main';
+      main.innerHTML = '<div id="case-study-root"></div>';
+    }
+
+    const loader = document.createElement('script');
+    loader.src = '/js/case-study.js?v=4';
+    loader.async = false;
+    document.body.append(loader);
+    return;
+  }
+
   const menuButton = document.querySelector('.menu-button');
   const mobileMenu = document.querySelector('.mobile-menu');
 
@@ -19,7 +58,6 @@
   mobileMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
 
   // Route portfolio case-study links through one literal root-level HTML file.
-  // This avoids Cloudflare Pages directory-routing ambiguity for /work/<slug>/ URLs.
   document.addEventListener('click', (event) => {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const link = event.target.closest('a[href]');
@@ -28,7 +66,7 @@
     const match = href.match(/^\/work\/([^/]+)\/?$/);
     if (!match) return;
     event.preventDefault();
-    window.location.assign(`/case-study.html?project=${encodeURIComponent(match[1])}`);
+    window.location.assign(`/?project=${encodeURIComponent(match[1])}`);
   });
 
   const tabs = [...document.querySelectorAll('[role="tab"]')];

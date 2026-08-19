@@ -18,7 +18,8 @@
   <link rel="stylesheet" href="/css/hero-build.css?v=1">
   <link rel="stylesheet" href="/css/tablet-header.css?v=1">
   <link rel="stylesheet" href="/css/final-tweaks.css?v=1">
-  <link rel="stylesheet" href="/css/work-card-hover.css?v=1">
+  <link rel="stylesheet" href="/css/lightbox.css?v=6">
+  <link rel="stylesheet" href="/css/work-card-hover.css?v=3">
   <link rel="stylesheet" href="/css/portrait-hover.css?v=1">
 </head>
 <body>
@@ -26,12 +27,8 @@
 
   <header class="site-header" id="top">
     <div class="shell header-inner">
-      <a class="brand" href="#top" aria-label="Anthony Storo home">
-        <img src="/assets/logos/anthony-storo-logo.svg" alt="Anthony Storo">
-      </a>
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#work">My Work</a><a href="#about">About</a><a href="#contact">Contact</a>
-      </nav>
+      <a class="brand" href="#top" aria-label="Anthony Storo home"><img src="/assets/logos/anthony-storo-logo.svg" alt="Anthony Storo"></a>
+      <nav class="desktop-nav" aria-label="Primary navigation"><a href="#work">My Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
     </div>
     <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden><a href="#work">My Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
@@ -40,7 +37,7 @@
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
       <div class="shell hero-inner">
-        <img class="hero-art hero-art-desktop" src="/assets/graphics/hero-background.jpg" alt="" aria-hidden="true">
+        <img class="hero-art hero-art-desktop" src="/assets/graphics/hero-figma.svg" alt="" aria-hidden="true">
         <div class="hero-art-mobile" aria-hidden="true"></div>
         <div class="hero-copy">
           <p class="eyebrow">Creative Strategy + Digital Experience</p>
@@ -59,31 +56,34 @@
           <button class="work-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-multimedia" id="tab-multimedia" data-tab="multimedia">Multimedia</button>
           <button class="work-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-brand" id="tab-brand" data-tab="brand">Brand + Print</button>
         </div>
+
         <div class="work-panels">
           <div class="work-panel is-active" id="panel-digital" role="tabpanel" aria-labelledby="tab-digital" data-panel="digital">
             <div class="project-grid project-grid-two">
-              <article class="project-card"><div class="project-media"><img src="/assets/images/carlingtech-showcase.jpg" alt="Carlingtech.com shown on a desktop display and phone" loading="lazy" style="opacity:0"></div><div class="project-copy"><h3>Carlingtech.com</h3><p>Website Redesign and CMS Migration</p></div></article>
-              <article class="project-card"><div class="project-media"><img src="/assets/images/fuse-holder-selector.jpg" alt="Fuse Holder Selector Tool shown on a laptop with a fuse holder product" loading="lazy"></div><div class="project-copy"><h3>Fuse Holder Selector Tool</h3><p>Interactive Product Selector</p></div></article>
-              <article class="project-card"><div class="project-media"><img src="/assets/images/v-series-selector.jpg" alt="V-Series Selector Tool shown on a laptop with a rocker switch" loading="lazy"></div><div class="project-copy"><h3>V-Series Selector Tool</h3><p>Interactive Product Selector</p></div></article>
-              <article class="project-card"><div class="project-media"><img src="/assets/images/sp-campbell.jpg" alt="S. P. Campbell author website and Little Stuess book" loading="lazy"></div><div class="project-copy"><h3>S. P. Campbell</h3><p>Author Website and eCommerce</p></div></article>
+              <a class="project-card" href="/work/carlingtech/"><div class="project-media"><img src="/assets/images/digital/carlingtech.png" alt="Carlingtech.com shown on desktop and mobile displays" loading="lazy"></div><div class="project-copy"><h3>Carlingtech.com</h3><p>Website Redesign and CMS Migration</p></div></a>
+              <a class="project-card" href="/work/fuse-holder-selector/"><div class="project-media"><img src="/assets/images/digital/fuse-holder-selector.png" alt="Fuse Holder Selector Tool shown on a laptop" loading="lazy"></div><div class="project-copy"><h3>Fuse Holder Selector Tool</h3><p>Interactive Product Selector</p></div></a>
+              <a class="project-card" href="/work/v-series-selector/"><div class="project-media"><img src="/assets/images/digital/v-series-selector.png" alt="V-Series Selector Tool shown on a laptop" loading="lazy"></div><div class="project-copy"><h3>V-Series Selector Tool</h3><p>Interactive Product Selector</p></div></a>
+              <a class="project-card" href="/work/sp-campbell/"><div class="project-media"><img src="/assets/images/digital/sp-campbell.png" alt="S. P. Campbell author website and Little Stuess book" loading="lazy"></div><div class="project-copy"><h3>S. P. Campbell</h3><p>Author Website and eCommerce</p></div></a>
             </div>
           </div>
+
           <div class="work-panel" id="panel-multimedia" role="tabpanel" aria-labelledby="tab-multimedia" data-panel="multimedia" hidden>
             <div class="project-grid project-grid-two">
-              <a class="project-card video-card" href="https://www.youtube.com/watch?v=xhpRkpaNW28" target="_blank" rel="noopener noreferrer"><div class="project-media"><img src="https://i.ytimg.com/vi/xhpRkpaNW28/maxresdefault.jpg" alt="Fuse Holder Product Overview video thumbnail" loading="lazy"><span class="play-button" aria-hidden="true"></span></div><div class="project-copy"><h3>Fuse Holder Product Overview</h3><p>Product Video</p></div></a>
-              <a class="project-card video-card" href="https://www.youtube.com/watch?v=TSYd1t8Ncmw" target="_blank" rel="noopener noreferrer"><div class="project-media"><img src="https://i.ytimg.com/vi/TSYd1t8Ncmw/maxresdefault.jpg" alt="Carling China Capabilities video thumbnail" loading="lazy"><span class="play-button" aria-hidden="true"></span></div><div class="project-copy"><h3>Carling China Capabilities</h3><p>Corporate Capabilities Video</p></div></a>
-              <a class="project-card video-card" href="https://www.youtube.com/watch?v=mYQJhXyPLog" target="_blank" rel="noopener noreferrer"><div class="project-media"><img src="https://i.ytimg.com/vi/mYQJhXyPLog/maxresdefault.jpg" alt="Window Switch Product Overview video thumbnail" loading="lazy"><span class="play-button" aria-hidden="true"></span></div><div class="project-copy"><h3>Window Switch Product Overview</h3><p>Product Video</p></div></a>
-              <a class="project-card video-card" href="https://www.youtube.com/watch?v=oLaF9HvPXa4" target="_blank" rel="noopener noreferrer"><div class="project-media"><img src="https://i.ytimg.com/vi/oLaF9HvPXa4/maxresdefault.jpg" alt="Cole Hersee 100 Year Celebration video thumbnail" loading="lazy"><span class="play-button" aria-hidden="true"></span></div><div class="project-copy"><h3>Cole Hersee 100 Year Celebration</h3><p>Anniversary Brand Video</p></div></a>
+              <article class="project-card video-card"><div class="project-media"><a class="project-media-link" href="/work/carling-china-capabilities/"><img src="/assets/images/multimedia/carling-china-capabilities.png" alt="Carling China Capabilities video thumbnail" loading="lazy"></a><a class="play-button video-play-link" href="https://www.youtube.com/watch?v=TSYd1t8Ncmw" target="_blank" rel="noopener noreferrer" aria-label="Play Carling China Capabilities video"></a></div><a class="project-copy" href="/work/carling-china-capabilities/"><h3>Carling China Capabilities</h3><p>Corporate Capabilities Video</p></a></article>
+              <article class="project-card video-card"><div class="project-media"><a class="project-media-link" href="/work/fuse-holder-product-overview/"><img src="/assets/images/multimedia/fuse-holder-product-overview.png" alt="Fuse Holder Product Overview video thumbnail" loading="lazy"></a><a class="play-button video-play-link" href="https://www.youtube.com/watch?v=xhpRkpaNW28" target="_blank" rel="noopener noreferrer" aria-label="Play Fuse Holder Product Overview video"></a></div><a class="project-copy" href="/work/fuse-holder-product-overview/"><h3>Fuse Holder Product Overview</h3><p>Product Video</p></a></article>
+              <article class="project-card video-card"><div class="project-media"><a class="project-media-link" href="/work/window-switch-product-overview/"><img src="/assets/images/multimedia/window-switch-product-overview.png" alt="Window Switch Product Overview video thumbnail" loading="lazy"></a><a class="play-button video-play-link" href="https://www.youtube.com/watch?v=mYQJhXyPLog" target="_blank" rel="noopener noreferrer" aria-label="Play Window Switch Product Overview video"></a></div><a class="project-copy" href="/work/window-switch-product-overview/"><h3>Window Switch Product Overview</h3><p>Product Video</p></a></article>
+              <article class="project-card video-card"><div class="project-media"><a class="project-media-link" href="/work/cole-hersee-100-year/"><img src="/assets/images/multimedia/cole-hersee-100-year.png" alt="Cole Hersee 100 Year Celebration video thumbnail" loading="lazy"></a><a class="play-button video-play-link" href="https://www.youtube.com/watch?v=oLaF9HvPXa4" target="_blank" rel="noopener noreferrer" aria-label="Play Cole Hersee 100 Year Celebration video"></a></div><a class="project-copy" href="/work/cole-hersee-100-year/"><h3>Cole Hersee 100 Year Celebration</h3><p>Anniversary Brand Video</p></a></article>
             </div>
           </div>
+
           <div class="work-panel" id="panel-brand" role="tabpanel" aria-labelledby="tab-brand" data-panel="brand" hidden>
             <div class="project-grid project-grid-three brand-grid">
-              <article class="project-card"><div class="project-media legacy-media"><img src="/assets/images/brand-print/littelfuse-transportation-catalog.jpg" alt="Littelfuse Transportation Products Catalog" loading="lazy"></div><div class="project-copy"><h3>Littelfuse Transportation Products Catalog</h3><p>Catalog + Information Design</p></div></article>
-              <article class="project-card"><div class="project-media legacy-media"><img src="/assets/images/brand-print/carling-100-years.jpg" alt="Carling Technologies 100 Years history booklet" loading="lazy"></div><div class="project-copy"><h3>100 Years History Booklet</h3><p>Anniversary History Booklet</p></div></article>
-              <article class="project-card"><div class="project-media legacy-media"><img src="/assets/images/brand-print/conexpo-trade-show.png" alt="Littelfuse trade show layout at ConExpo" loading="lazy"></div><div class="project-copy"><h3>Trade Show Layout at ConExpo</h3><p>Trade Show Environmental Design</p></div></article>
-              <article class="project-card"><div class="project-media legacy-media"><img src="/assets/images/brand-print/arbor-meadows.jpg" alt="Arbor Meadows new development catalog" loading="lazy"></div><div class="project-copy"><h3>Arbor Meadows New Development Catalog</h3><p>Calcagni Real Estate Catalog Design</p></div></article>
-              <article class="project-card"><div class="project-media legacy-media"><img src="/assets/images/brand-print/little-stuess-book.jpg" alt="Little Stuess children's book layout" loading="lazy"></div><div class="project-copy"><h3>Little Stuess Children's Book Layout</h3><p>Children's Book Design</p></div></article>
-              <article class="project-card"><div class="project-media legacy-media"><img src="/assets/images/brand-print/logo-designs.jpg" alt="Wildthings logo design" loading="lazy"></div><div class="project-copy"><h3>Logo Designs</h3><p>Brand Identity + Logo Design</p></div></article>
+              <a class="project-card" href="/work/transportation-products-catalog/"><div class="project-media legacy-media"><img src="/assets/images/brand-print/littelfuse-transportation-catalog.jpg" alt="Littelfuse Transportation Products Catalog" loading="lazy"></div><div class="project-copy"><h3>Littelfuse Transportation Products Catalog</h3><p>Catalog + Information Design</p></div></a>
+              <a class="project-card" href="/work/conexpo-trade-show/"><div class="project-media legacy-media"><img src="/assets/images/brand-print/conexpo-trade-show.png" alt="Littelfuse ConExpo trade show experience" loading="lazy"></div><div class="project-copy"><h3>ConExpo Trade Show Experience</h3><p>Trade Show Environmental Design</p></div></a>
+              <a class="project-card" href="/work/carling-100-year-history-booklet/"><div class="project-media legacy-media"><img src="/assets/images/brand-print/carling-100-years.jpg" alt="Carling 100 Year History Booklet" loading="lazy"></div><div class="project-copy"><h3>Carling 100 Year History Booklet</h3><p>Anniversary History Booklet</p></div></a>
+              <a class="project-card" href="/work/arbor-meadows/"><div class="project-media legacy-media"><img src="/assets/images/brand-print/arbor-meadows.jpg" alt="Arbor Meadows brochure" loading="lazy"></div><div class="project-copy"><h3>Arbor Meadows Brochure</h3><p>Calcagni Real Estate Brochure Design</p></div></a>
+              <a class="project-card" href="/work/little-stuess-book/"><div class="project-media legacy-media"><img src="/assets/images/brand-print/little-stuess-book.jpg" alt="Little Stuess children's book layout" loading="lazy"></div><div class="project-copy"><h3>Little Stuess Children's Book Layout</h3><p>Children's Book Design</p></div></a>
+              <a class="project-card" href="/work/logo-brand-identity/"><div class="project-media legacy-media"><img src="/assets/images/brand-print/logo-designs.jpg" alt="Wildthings logo design" loading="lazy"></div><div class="project-copy"><h3>Logo Designs</h3><p>Brand Identity + Logo Design</p></div></a>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
     <section class="about-section" id="about" aria-labelledby="about-title">
       <div class="shell about-inner">
         <div class="about-copy"><p class="eyebrow eyebrow-light">About Me</p><h2 id="about-title">From design craft to digital leadership.</h2><div class="about-body"><p>I started as a graphic designer and expanded into web, motion, video, UX, and interactive product experiences. That range still shapes how I work today.</p><p>At Littelfuse, I lead creative strategy and digital experience for global marketing, partnering across product, engineering, sales, and marketing.</p><p>I’m still a hands on designer. I enjoy building useful things, improving systems, mentoring teams, and simplifying complex information.</p></div></div>
-        <div class="portrait-treatment" aria-label="Portrait of Anthony Storo"><div class="portrait-backplate"></div><div class="portrait-placeholder"><img src="/assets/logos/anthony-storo-logo.svg" alt="Anthony Storo logo"></div></div>
+        <div class="portrait-treatment" aria-label="Portrait of Anthony Storo"><div class="portrait-backplate"></div><div class="portrait-placeholder"><img src="/assets/images/about/anthony-portrait.png" alt="Anthony Storo"></div></div>
       </div>
     </section>
 
@@ -113,7 +113,7 @@
 
   <footer class="site-footer"><div class="shell footer-inner"><div class="footer-brand"><img src="/assets/logos/anthony-storo-logo.svg" alt="Anthony Storo"><p>Copyright © 2026 Anthony Storo. All rights reserved</p></div><nav class="footer-nav" aria-label="Footer navigation"><a href="#work">My Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav></div></footer>
   <script src="/js/contact-security.js?v=1" defer></script>
-  <script src="/js/main.js?v=2" defer></script>
+  <script src="/js/main.js?v=3" defer></script>
   <script src="/js/hero-build.js?v=1" defer></script>
   <script src="/js/motion.js?v=1" defer></script>
   <script src="/js/portrait-hover.js?v=1" defer></script>

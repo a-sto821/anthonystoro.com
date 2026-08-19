@@ -1,0 +1,77 @@
+/* Final mobile case-study corrections. Scoped so the homepage is unaffected. */
+.case-study-body .case-cta {
+  gap: 5px;
+}
+
+.case-study-body .case-cta.case-cta-external::after {
+  content: "";
+  display: inline-block;
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  background: center / 12px 12px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M5 11L11 5M6 5h5v5' stroke='%23252525' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 720px) {
+  .case-study-body .site-footer {
+    position: relative !important;
+    display: block !important;
+    height: 270px !important;
+    min-height: 270px !important;
+    margin-top: 34px !important;
+    background: #151515 !important;
+    color: #cfcfcf !important;
+  }
+
+  .case-study-body .footer-inner {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: calc(100% - 56px) !important;
+    height: 270px !important;
+    padding: 34px 0 0 !important;
+    margin: 0 auto !important;
+  }
+
+  /* Flatten the wrapper so logo, nav and copyright can follow Figma's vertical order. */
+  .case-study-body .footer-brand {
+    display: contents !important;
+  }
+
+  .case-study-body .footer-brand img {
+    order: 1 !important;
+    width: 86px !important;
+    height: 60px !important;
+    margin: 0 !important;
+    object-fit: contain !important;
+  }
+
+  .case-study-body .footer-nav {
+    order: 2 !important;
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+    gap: 0 !important;
+    margin: 26px 0 0 !important;
+  }
+
+  .case-study-body .footer-nav a {
+    width: 88px !important;
+    text-align: center !important;
+    font: 600 11px/13px Montserrat, sans-serif !important;
+  }
+
+  .case-study-body .footer-brand p {
+    order: 3 !important;
+    position: static !important;
+    inset: auto !important;
+    width: 334px !important;
+    margin: 58px 0 0 !important;
+    transform: none !important;
+    text-align: center !important;
+    color: #8f8f8f !important;
+    font: 400 10px/13.5px Montserrat, sans-serif !important;
+  }
+}

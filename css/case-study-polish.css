@@ -32,6 +32,59 @@
     top: 50% !important;
   }
 
+  /* Readability test: larger mobile type scale on Carlingtech only. */
+  .case-study-body[data-case-study="carlingtech"] .case-title {
+    font-size: 24px !important;
+    line-height: 1.22 !important;
+    letter-spacing: -.3px !important;
+  }
+
+  .case-study-body[data-case-study="carlingtech"] .case-summary-copy h2,
+  .case-study-body[data-case-study="carlingtech"] .case-process h2 {
+    font-size: 17px !important;
+    line-height: 1.32 !important;
+  }
+
+  .case-study-body[data-case-study="carlingtech"] .case-summary-copy p {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+  }
+
+  .case-study-body[data-case-study="carlingtech"] .case-meta-label {
+    font-size: 9px !important;
+    line-height: 1.25 !important;
+  }
+
+  .case-study-body[data-case-study="carlingtech"] .case-meta-value {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  .case-study-body[data-case-study="carlingtech"] .case-process-summary-mobile {
+    font-size: 11px !important;
+    line-height: 1.55 !important;
+  }
+
+  .case-study-body[data-case-study="carlingtech"] .case-process-toggle {
+    font-size: 11px !important;
+    line-height: 30px !important;
+  }
+
+  .case-study-body[data-case-study="carlingtech"] .case-cta {
+    font-size: 13px !important;
+    line-height: 19px !important;
+  }
+
+  .case-study-body[data-case-study="carlingtech"] .case-nav-label {
+    font-size: 10px !important;
+    line-height: 13px !important;
+  }
+
+  .case-study-body[data-case-study="carlingtech"] .case-nav-title {
+    font-size: 15px !important;
+    line-height: 21px !important;
+  }
+
   .case-study-body .site-footer {
     position: relative !important;
     display: block !important;

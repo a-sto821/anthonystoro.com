@@ -12,14 +12,26 @@
   background: center / 12px 12px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M5 11L11 5M6 5h5v5' stroke='%23252525' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
+/* Button elements shrink-wrap by default. Video heroes must occupy the same full stage width as photo heroes. */
+.case-study-body .case-video-target.case-stage-main {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 @media (max-width: 720px) {
   /* Video case studies use the still as the hero itself, not the inset device treatment. */
   .case-study-body.case-study-video-project .case-video-target.case-stage-main {
+    width: 100% !important;
     padding: 0 !important;
     background: #f3f4f5 !important;
   }
 
   .case-study-body.case-study-video-project .case-video-target.case-stage-main .case-image {
+    display: block !important;
     width: 100% !important;
     height: 160px !important;
     object-fit: cover !important;

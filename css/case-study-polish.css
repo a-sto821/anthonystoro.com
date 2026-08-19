@@ -82,6 +82,11 @@
     top: 50% !important;
   }
 
+  /* Mobile summary prioritizes the two most useful at-a-glance fields. */
+  .case-study-body .case-meta-row:nth-child(n+3) {
+    display: none !important;
+  }
+
   /* Approved mobile readability scale, applied consistently across all case studies. */
   .case-study-body .case-title {
     font-size: 24px !important;

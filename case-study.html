@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="/css/tablet-header.css?v=1">
   <link rel="stylesheet" href="/css/final-tweaks.css?v=1">
-  <link rel="stylesheet" href="/css/case-study.css?v=1">
+  <link rel="stylesheet" href="/css/case-study.css?v=3">
+  <link rel="stylesheet" href="/css/case-study-polish.css?v=6">
 </head>
 <body class="case-study-body">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -33,18 +34,11 @@
     </div>
   </footer>
   <script>
-    document.body.dataset.caseStudy = new URLSearchParams(window.location.search).get('project') || '';
-    document.addEventListener('click', (event) => {
-      if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const link = event.target.closest('a.case-nav-link[href]');
-      if (!link) return;
-      const href = link.getAttribute('href') || '';
-      const match = href.match(/^\/work\/([^/]+)\/?$/);
-      if (!match) return;
-      event.preventDefault();
-      window.location.assign(`/case-study.html?project=${encodeURIComponent(match[1])}`);
-    });
+    const pathProject = window.location.pathname.match(/^\/work\/([^/]+)\/?$/)?.[1] || '';
+    const queryProject = new URLSearchParams(window.location.search).get('project') || '';
+    document.body.dataset.caseStudy = pathProject || queryProject;
   </script>
-  <script src="/js/case-study.js?v=2" defer></script>
+  <script src="/js/case-study.js?v=4" defer></script>
+  <script src="/js/case-study-polish.js?v=3" defer></script>
 </body>
 </html>

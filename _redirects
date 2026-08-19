@@ -1,3 +1,0 @@
-# Explicitly serve nested case-study index files instead of Cloudflare Pages SPA fallback.
-/work/:slug/ /work/:slug/index.html 200
-/work/:slug /work/:slug/index.html 200

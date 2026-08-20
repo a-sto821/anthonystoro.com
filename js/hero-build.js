@@ -96,6 +96,15 @@
   if (mobileWrapper) {
     mobileWrapper.classList.add('hero-build-wrapper');
     mobileWrapper.replaceChildren(createStage());
+
+    // Mobile readability pass: let copy lead and keep the illustration secondary.
+    if (window.matchMedia('(max-width: 720px)').matches) {
+      mobileWrapper.style.top = '178px';
+      mobileWrapper.style.opacity = '.78';
+      const intro = document.querySelector('.hero-intro');
+      if (intro) intro.style.color = '#545b61';
+    }
+
     wrappers.push(mobileWrapper);
   }
 

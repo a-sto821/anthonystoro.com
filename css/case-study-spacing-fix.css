@@ -5,3 +5,47 @@
     margin-top: 22px !important;
   }
 }
+
+/* Match Figma Case Study / Project Navigation arrow treatment (node 253:61). */
+.case-nav-link.prev::before,
+.case-nav-link.next::after {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  border: 0 !important;
+  color: #1f1f1f;
+  font: 600 14px/1 Montserrat, sans-serif !important;
+}
+
+.case-nav-link.prev::before {
+  content: "←" !important;
+  left: 0 !important;
+  top: calc(50% + 7px) !important;
+  transform: translateY(-50%) !important;
+}
+
+.case-nav-link.next::after {
+  content: "→" !important;
+  right: 0 !important;
+  top: calc(50% + 7px) !important;
+  transform: translateY(-50%) !important;
+}
+
+.case-nav-link.prev {
+  padding-left: 18px !important;
+}
+
+.case-nav-link.next {
+  padding-right: 18px !important;
+}
+
+@media (min-width: 721px) {
+  .case-nav-label {
+    letter-spacing: 1.1px;
+  }
+
+  .case-nav-title,
+  .case-all-work {
+    font-size: 14px;
+  }
+}

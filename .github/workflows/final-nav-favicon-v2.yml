@@ -1,0 +1,84 @@
+name: Temporary final nav and favicon v2
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.head_ref == 'match-figma-nav-favicon-v2' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: match-figma-nav-favicon-v2
+
+      - name: Match Figma project navigation and force fresh favicon
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          # Force a brand-new favicon URL to bypass Chrome's persistent favicon cache.
+          src = Path('favicon-20260820.svg')
+          dst = Path('favicon-as-v2.svg')
+          dst.write_text(src.read_text())
+
+          for filename in ('index.html', 'case-study.html'):
+              path = Path(filename)
+              text = path.read_text()
+              text = text.replace('/favicon-20260820.svg?v=1', '/favicon-as-v2.svg')
+              if filename == 'case-study.html':
+                  text = text.replace('/css/case-study.css?v=4', '/css/case-study.css?v=5')
+                  text = text.replace('/js/case-study.js?v=4', '/js/case-study.js?v=5')
+              path.write_text(text)
+
+          # Figma node 253:61 uses typographic arrows inside the 14px project title,
+          # not standalone chevron icons.
+          js_path = Path('js/case-study.js')
+          js = js_path.read_text()
+          js = js.replace('<span class="case-nav-label">Previous Project</span>\n          <span class="case-nav-title">${previous.title}</span>',
+                          '<span class="case-nav-label">Previous Case Study</span>\n          <span class="case-nav-title">← ${previous.title}</span>')
+          js = js.replace('<span class="case-nav-label">Next Project</span>\n          <span class="case-nav-title">${next.title}</span>',
+                          '<span class="case-nav-label">Next Case Study</span>\n          <span class="case-nav-title">${next.title} →</span>')
+          js_path.write_text(js)
+
+          css_path = Path('css/case-study.css')
+          css = css_path.read_text()
+          css += '''
+
+/* Match Figma Case Study / Project Navigation (node 253:61). */
+.case-nav-link.prev,
+.case-nav-link.next {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.case-nav-link.prev::before,
+.case-nav-link.next::after {
+  content: none !important;
+  display: none !important;
+}
+
+.case-nav-label {
+  letter-spacing: 1.1px;
+}
+
+.case-nav-title,
+.case-all-work {
+  font-size: 14px;
+}
+'''
+          css_path.write_text(css)
+          PY
+
+      - name: Commit final nav and favicon polish
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add favicon-as-v2.svg index.html case-study.html js/case-study.js css/case-study.css
+          git commit -m 'Match Figma navigation arrows and refresh favicon'
+          git push origin HEAD:match-figma-nav-favicon-v2

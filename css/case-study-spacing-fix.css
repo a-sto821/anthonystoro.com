@@ -1,0 +1,7 @@
+/* Mobile case-study spacing aligned to the approved Figma boards. */
+@media (max-width: 720px) {
+  /* No-CTA projects need breathing room between the Process card and project navigation. */
+  .case-study-body .case-process + .case-nav {
+    margin-top: 22px !important;
+  }
+}

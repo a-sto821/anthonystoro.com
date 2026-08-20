@@ -212,6 +212,20 @@
 }
 
 @media (max-width: 720px) {
+  .motion-ready .site-header {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+    transition:
+      opacity 520ms cubic-bezier(.2,.72,.2,1),
+      transform 520ms cubic-bezier(.2,.72,.2,1);
+    will-change: opacity, transform;
+  }
+
+  .motion-ready.motion-started .site-header {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
   .motion-ready .hero-copy > * {
     transform: translate3d(0, 14px, 0);
   }

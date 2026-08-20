@@ -5,20 +5,30 @@
     color: #3f474d;
   }
 
+  /*
+    Figma node 179:14 is a custom mobile composition, not a scaled desktop build.
+    Keep the approved x/y/frame geometry and 60px parallax on the wrapper, then
+    render the exact exported Figma vector at its natural overflow dimensions.
+    The SVG itself contains the node's 8% opacity.
+  */
   .hero .hero-art-mobile {
     top: 218px !important;
-    opacity: .42 !important;
+    opacity: 1 !important;
   }
 
-  /*
-    Match Figma node 179:14. The outer 334px frame stays fixed, while the
-    artwork inside it is enlarged from the top-left: +5.04% horizontally and
-    +15.99% vertically. Individual `scale` composes with the animated stage's
-    existing transform without changing the 60px parallax on the wrapper.
-  */
   .hero .hero-art-mobile .hero-build-stage {
-    scale: 1.0504 1.1599;
-    transform-origin: 0 0;
+    display: none !important;
+  }
+
+  .hero .hero-art-mobile::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 105.04%;
+    height: 115.99%;
+    background: url("/assets/graphics/hero-mobile-179-14.svg") left top / 100% 100% no-repeat;
+    pointer-events: none;
   }
 
   /* The first project is part of the initial My Work composition, not a scroll surprise. */

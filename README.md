@@ -11,6 +11,10 @@ Production portfolio website for Anthony Storo.
 - Production branch: `main`
 - Hosting: Cloudflare Pages
 
+### Figma recovery rule
+
+The Figma file is the visual source of truth. If the linked Figma file cannot be found, has moved, is inaccessible, or the saved URL no longer works, **ask Anthony for the current Figma link before making design decisions or attempting to recreate the design from older references.**
+
 ## Start here
 
 For project history, architecture, approved design decisions, Figma node references, case-study rules, Cloudflare routing, contact-form security, favicon/404 behavior, maintenance workflow, and future-session recovery instructions, read:

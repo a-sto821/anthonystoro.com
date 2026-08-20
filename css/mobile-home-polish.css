@@ -1,10 +1,12 @@
 /* Mobile-only homepage refinements approved from device QA. */
 @media (max-width: 720px) {
-  /* Run the mobile header entrance from first paint so Safari cannot miss it while JS initializes. */
-  @media (prefers-reduced-motion: no-preference) {
-    .site-header {
-      animation: mobileHeaderEntrance 620ms 80ms cubic-bezier(.2,.72,.2,1) both;
-    }
+  /* Keep the navigation header static. The animated element on mobile is the systems graphic below the hero copy. */
+  .motion-ready .site-header,
+  .motion-ready.motion-started .site-header {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
   }
 
   /* Keep the intro copy clearly in front of the decorative systems artwork. */
@@ -13,10 +15,10 @@
   }
 
   /*
-    Figma node 179:14 is a custom mobile composition, not a scaled desktop build.
-    Keep the approved x/y/frame geometry and 60px parallax on the wrapper, then
-    render the exact exported Figma vector at its natural overflow dimensions.
-    The SVG itself contains the node's 8% opacity.
+    Restore the layered hero build on mobile. The previous mobile polish pass
+    hid .hero-build-stage and replaced it with a static Figma SVG, which removed
+    the assembly animation. Preserve the approved mobile placement while letting
+    hero-build.js animate the individual layers again.
   */
   .hero .hero-art-mobile {
     top: 218px !important;
@@ -24,18 +26,12 @@
   }
 
   .hero .hero-art-mobile .hero-build-stage {
-    display: none !important;
+    display: block !important;
   }
 
   .hero .hero-art-mobile::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 105.04%;
-    height: 115.99%;
-    background: url("/assets/graphics/hero-mobile-179-14.svg") left top / 100% 100% no-repeat;
-    pointer-events: none;
+    content: none !important;
+    background: none !important;
   }
 
   /* The first project is part of the initial My Work composition, not a scroll surprise. */
@@ -44,16 +40,5 @@
     opacity: 1 !important;
     transform: translate3d(0, 0, 0) !important;
     transition-delay: 0ms !important;
-  }
-}
-
-@keyframes mobileHeaderEntrance {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -16px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
   }
 }

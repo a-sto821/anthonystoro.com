@@ -82,3 +82,5 @@ jobs:
           git add favicon-as-v2.svg index.html case-study.html js/case-study.js css/case-study.css
           git commit -m 'Match Figma navigation arrows and refresh favicon'
           git push origin HEAD:match-figma-nav-favicon-v2
+
+# sync trigger

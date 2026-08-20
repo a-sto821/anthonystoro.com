@@ -155,7 +155,7 @@
       if (hero) {
         const rect = hero.getBoundingClientRect();
         const progress = clamp(-rect.top / Math.max(rect.height, 1), 0, 1);
-        const artY = isMobile ? progress * -60 : progress * -38;
+        const artY = isMobile ? progress * -100 : progress * -38;
         const copyY = isMobile ? progress * -4 : progress * -12;
         const activeHeroArt = isMobile ? heroArtMobile : heroArtDesktop;
 

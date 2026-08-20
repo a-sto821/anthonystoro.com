@@ -1,0 +1,20 @@
+/* Mobile-only homepage refinements approved from device QA. */
+@media (max-width: 720px) {
+  /* Keep the intro copy clearly in front of the decorative systems artwork. */
+  .hero .hero-intro {
+    color: #3f474d;
+  }
+
+  .hero .hero-art-mobile {
+    top: 218px !important;
+    opacity: .42 !important;
+  }
+
+  /* The first project is part of the initial My Work composition, not a scroll surprise. */
+  html.motion-ready #panel-digital .project-card:first-child.motion-reveal,
+  html.motion-ready #panel-digital .project-card:first-child.motion-reveal.is-visible {
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) !important;
+    transition-delay: 0ms !important;
+  }
+}

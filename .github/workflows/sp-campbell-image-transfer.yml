@@ -1,0 +1,28 @@
+name: Temporary S. P. Campbell image transfer
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  transfer:
+    if: github.head_ref == 'sp-campbell-mobile-image-fix-v2' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: sp-campbell-mobile-image-fix-v2
+      - name: Download exact 3x Figma gallery export
+        run: |
+          curl -L --fail --retry 3 -o assets/images/case-studies/sp-campbell-mobile.png 'https://www.figma.com/api/mcp/asset/8fa5134a-ddbe-402b-8083-c9e87d2369dc.png'
+      - name: Commit updated gallery asset
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/images/case-studies/sp-campbell-mobile.png
+          git commit -m 'Sync S. P. Campbell mobile image to Figma'
+          git push origin HEAD:sp-campbell-mobile-image-fix-v2

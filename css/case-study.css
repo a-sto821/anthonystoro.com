@@ -239,10 +239,40 @@
 }
 
 .case-nav-link {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 2px;
   min-width: 0;
+}
+
+.case-nav-link.prev {
+  padding-left: 18px;
+}
+
+.case-nav-link.next {
+  padding-right: 18px;
+}
+
+.case-nav-link.prev::before,
+.case-nav-link.next::after {
+  content: "";
+  position: absolute;
+  top: calc(50% + 6px);
+  width: 8px;
+  height: 8px;
+  border: solid #262626;
+  border-width: 0 2px 2px 0;
+}
+
+.case-nav-link.prev::before {
+  left: 1px;
+  transform: translateY(-50%) rotate(135deg);
+}
+
+.case-nav-link.next::after {
+  right: 1px;
+  transform: translateY(-50%) rotate(-45deg);
 }
 
 .case-nav-link.next {
@@ -578,5 +608,30 @@
     text-align: center;
     font-size: 10px;
     line-height: 13.5px;
+  }
+}
+
+
+/* Final cross-browser mobile chevrons: override legacy text glyphs. */
+@media (max-width: 720px) {
+  .case-nav-link.prev::before,
+  .case-nav-link.next::after {
+    content: "";
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border: solid #262626;
+    border-width: 0 2px 2px 0;
+    font: inherit;
+  }
+
+  .case-nav-link.prev::before {
+    left: 1px;
+    transform: translateY(-50%) rotate(135deg);
+  }
+
+  .case-nav-link.next::after {
+    right: 1px;
+    transform: translateY(-50%) rotate(-45deg);
   }
 }

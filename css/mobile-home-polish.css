@@ -10,6 +10,17 @@
     opacity: .42 !important;
   }
 
+  /*
+    Match Figma node 179:14. The outer 334px frame stays fixed, while the
+    artwork inside it is enlarged from the top-left: +5.04% horizontally and
+    +15.99% vertically. Individual `scale` composes with the animated stage's
+    existing transform without changing the 60px parallax on the wrapper.
+  */
+  .hero .hero-art-mobile .hero-build-stage {
+    scale: 1.0504 1.1599;
+    transform-origin: 0 0;
+  }
+
   /* The first project is part of the initial My Work composition, not a scroll surprise. */
   html.motion-ready #panel-digital .project-card:first-child.motion-reveal,
   html.motion-ready #panel-digital .project-card:first-child.motion-reveal.is-visible {

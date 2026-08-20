@@ -40,7 +40,7 @@
     if (!gallery || gallery.dataset.figmaGallerySynced === project) return Boolean(gallery);
 
     const desktop = `/assets/images/case-studies/${project}-desktop.png`;
-    const mobile = `/assets/images/case-studies/${project}-mobile.png`;
+    const mobile = `/assets/images/case-studies/${project}-mobile.png?v=3x-20260820`;
     const title = document.querySelector('.case-title')?.textContent?.trim() || 'Case study';
     const isVideo = videoProjects.has(project);
 

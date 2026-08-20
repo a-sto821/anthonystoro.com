@@ -34,3 +34,5 @@ jobs:
           git add index.html case-study.html case-study-shell.txt
           git commit -m 'Remove legacy favicon references'
           git push origin HEAD:finalize-favicon-browser-fallbacks
+
+# trigger

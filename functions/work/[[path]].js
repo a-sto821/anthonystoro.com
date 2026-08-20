@@ -24,6 +24,8 @@ export async function onRequest({ request, env }) {
     return Response.redirect(new URL('/#work', url.origin), 302);
   }
 
-  // Serve the shared case-study shell while preserving the clean /work/<slug>/ URL.
-  return env.ASSETS.fetch(new URL('/case-study.html', url.origin));
+  // Pages' ASSETS binding expects the public pretty path rather than the
+  // physical .html filename. The browser URL remains /work/<slug>/, so the
+  // case-study shell can still derive the active project from location.pathname.
+  return env.ASSETS.fetch(new URL('/case-study', url.origin));
 }

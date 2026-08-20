@@ -1,3 +1,5 @@
+import caseStudyHtml from '../../case-study.html';
+
 const VALID_PROJECTS = new Set([
   'logo-brand-identity',
   'carlingtech',
@@ -15,7 +17,7 @@ const VALID_PROJECTS = new Set([
   'little-stuess-book'
 ]);
 
-export async function onRequest({ request, env }) {
+export async function onRequest({ request }) {
   const url = new URL(request.url);
   const rest = url.pathname.replace(/^\/work\/?/, '');
   const slug = rest.split('/').filter(Boolean)[0] || '';
@@ -24,18 +26,13 @@ export async function onRequest({ request, env }) {
     return Response.redirect(new URL('/#work', url.origin), 302);
   }
 
-  // Fetch a non-HTML static asset so Pages cannot apply its HTML routing/
-  // pretty-URL fallback. Return those exact bytes as the case-study document
-  // while keeping the clean /work/<slug>/ address in the browser.
-  const asset = await env.ASSETS.fetch(new URL('/case-study-shell.txt', url.origin));
-  if (!asset.ok) return new Response('Case study unavailable', { status: 503 });
-
-  const headers = new Headers(asset.headers);
-  headers.set('Content-Type', 'text/html; charset=utf-8');
-  headers.set('Cache-Control', 'no-cache');
-  return new Response(asset.body, {
+  // Import and return the case-study document directly as a Pages text module.
+  // This bypasses static-asset HTML rewriting while preserving /work/<slug>/.
+  return new Response(caseStudyHtml, {
     status: 200,
-    statusText: 'OK',
-    headers
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'no-cache'
+    }
   });
 }

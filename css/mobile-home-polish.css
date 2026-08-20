@@ -1,5 +1,12 @@
 /* Mobile-only homepage refinements approved from device QA. */
 @media (max-width: 720px) {
+  /* Run the mobile header entrance from first paint so Safari cannot miss it while JS initializes. */
+  @media (prefers-reduced-motion: no-preference) {
+    .site-header {
+      animation: mobileHeaderEntrance 620ms 80ms cubic-bezier(.2,.72,.2,1) both;
+    }
+  }
+
   /* Keep the intro copy clearly in front of the decorative systems artwork. */
   .hero .hero-intro {
     color: #3f474d;
@@ -37,5 +44,16 @@
     opacity: 1 !important;
     transform: translate3d(0, 0, 0) !important;
     transition-delay: 0ms !important;
+  }
+}
+
+@keyframes mobileHeaderEntrance {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }

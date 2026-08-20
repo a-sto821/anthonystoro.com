@@ -27,7 +27,27 @@
     }
   };
 
+  const ensureGallerySync = () => {
+    if (!getCurrentProject()) return;
+
+    if (!document.querySelector('link[href^="/css/case-study-gallery-sync.css"]')) {
+      const styles = document.createElement('link');
+      styles.rel = 'stylesheet';
+      styles.href = '/css/case-study-gallery-sync.css?v=1';
+      document.head.append(styles);
+    }
+
+    if (!document.querySelector('script[src^="/js/case-study-gallery-sync.js"]')) {
+      const script = document.createElement('script');
+      script.src = '/js/case-study-gallery-sync.js?v=1';
+      script.defer = true;
+      document.body.append(script);
+    }
+  };
+
   const polish = () => {
+    ensureGallerySync();
+
     document.querySelectorAll('.case-cta').forEach((link) => {
       if (link.dataset.caseCtaPolished !== 'true') {
         link.textContent = link.textContent.replace(/\s*↗\s*$/u, '').trim();

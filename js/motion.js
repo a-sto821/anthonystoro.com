@@ -155,7 +155,7 @@
       if (hero) {
         const rect = hero.getBoundingClientRect();
         const progress = clamp(-rect.top / Math.max(rect.height, 1), 0, 1);
-        const artY = isMobile ? progress * -14 : progress * -38;
+        const artY = isMobile ? progress * -48 : progress * -38;
         const copyY = isMobile ? progress * -4 : progress * -12;
         const activeHeroArt = isMobile ? heroArtMobile : heroArtDesktop;
 
@@ -173,9 +173,6 @@
         const center = (rect.top + rect.height / 2) / viewportHeight - 0.5;
         const amplitude = isMobile ? 2.5 : 6;
         const y = clamp(center * -amplitude * 2, -amplitude, amplitude);
-        // Safari can soften detailed raster images when a composited parent sits on a
-        // fractional pixel. Snap only Safari's tiny scroll-parallax offset to whole
-        // pixels so UI screenshots stay crisp without changing the Chrome motion.
         const renderedY = isSafari ? Math.round(y) : y;
         media.style.setProperty('--motion-media-y', `${renderedY}px`);
       });

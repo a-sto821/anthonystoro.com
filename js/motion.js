@@ -1,7 +1,7 @@
 (() => {
   const motionStyles = document.createElement('link');
   motionStyles.rel = 'stylesheet';
-  motionStyles.href = '/css/motion.css?v=1';
+  motionStyles.href = '/css/motion.css?v=2';
   document.head.append(motionStyles);
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');

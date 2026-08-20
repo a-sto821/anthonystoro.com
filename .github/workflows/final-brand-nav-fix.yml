@@ -21,9 +21,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
 
-          # Build a fresh square favicon from the current production AS logo.
-          logo_path = Path('assets/logos/anthony-storo-logo.svg')
-          logo = logo_path.read_text()
+          logo = Path('assets/logos/anthony-storo-logo.svg').read_text()
           old_root = '<svg width="86" height="62" viewBox="0 0 86 62" fill="none" xmlns="http://www.w3.org/2000/svg">'
           new_root = '<svg width="86" height="86" viewBox="0 0 86 86" fill="none" xmlns="http://www.w3.org/2000/svg">'
           if old_root not in logo:
@@ -33,7 +31,6 @@ jobs:
           favicon = favicon.replace('</svg>', '</g>\n</svg>', 1)
           Path('favicon-20260820.svg').write_text(favicon)
 
-          # Use the fresh favicon URL everywhere so browsers cannot retain the old icon.
           for filename in ('index.html', 'case-study.html'):
               path = Path(filename)
               text = path.read_text().replace('/favicon-20260815.svg', '/favicon-20260820.svg?v=1')
@@ -45,7 +42,6 @@ jobs:
                   text = text.replace('/css/case-study.css?v=3', '/css/case-study.css?v=4')
               path.write_text(text)
 
-          # Add reliable CSS-drawn chevrons on desktop and mobile.
           css_path = Path('css/case-study.css')
           css = css_path.read_text()
           old_link = '''.case-nav-link {
@@ -96,51 +92,32 @@ jobs:
               raise SystemExit('Desktop case-nav-link block not found')
           css = css.replace(old_link, new_link, 1)
 
-          old_next = '''  .case-nav-link.next::after {
-            content: "›";
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            font: 400 22px/22px Montserrat, sans-serif;
+          css += '''
+
+          /* Final cross-browser mobile chevrons: override legacy text glyphs. */
+          @media (max-width: 720px) {
+            .case-nav-link.prev::before,
+            .case-nav-link.next::after {
+              content: "";
+              top: 50%;
+              width: 8px;
+              height: 8px;
+              border: solid #262626;
+              border-width: 0 2px 2px 0;
+              font: inherit;
+            }
+
+            .case-nav-link.prev::before {
+              left: 1px;
+              transform: translateY(-50%) rotate(135deg);
+            }
+
+            .case-nav-link.next::after {
+              right: 1px;
+              transform: translateY(-50%) rotate(-45deg);
+            }
           }
           '''
-          new_next = '''  .case-nav-link.next::after {
-            content: "";
-            position: absolute;
-            right: 1px;
-            top: 50%;
-            width: 8px;
-            height: 8px;
-            border: solid #262626;
-            border-width: 0 2px 2px 0;
-            transform: translateY(-50%) rotate(-45deg);
-          }
-          '''
-          old_prev = '''  .case-nav-link.prev::before {
-            content: "‹";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            font: 400 22px/22px Montserrat, sans-serif;
-          }
-          '''
-          new_prev = '''  .case-nav-link.prev::before {
-            content: "";
-            position: absolute;
-            left: 1px;
-            top: 50%;
-            width: 8px;
-            height: 8px;
-            border: solid #262626;
-            border-width: 0 2px 2px 0;
-            transform: translateY(-50%) rotate(135deg);
-          }
-          '''
-          if old_next not in css or old_prev not in css:
-              raise SystemExit('Mobile arrow blocks not found')
-          css = css.replace(old_next, new_next, 1).replace(old_prev, new_prev, 1)
           css_path.write_text(css)
           PY
 

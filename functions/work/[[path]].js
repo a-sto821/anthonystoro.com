@@ -24,8 +24,18 @@ export async function onRequest({ request, env }) {
     return Response.redirect(new URL('/#work', url.origin), 302);
   }
 
-  // Pages' ASSETS binding expects the public pretty path rather than the
-  // physical .html filename. The browser URL remains /work/<slug>/, so the
-  // case-study shell can still derive the active project from location.pathname.
-  return env.ASSETS.fetch(new URL('/case-study', url.origin));
+  // Fetch a non-HTML static asset so Pages cannot apply its HTML routing/
+  // pretty-URL fallback. Return those exact bytes as the case-study document
+  // while keeping the clean /work/<slug>/ address in the browser.
+  const asset = await env.ASSETS.fetch(new URL('/case-study-shell.txt', url.origin));
+  if (!asset.ok) return new Response('Case study unavailable', { status: 503 });
+
+  const headers = new Headers(asset.headers);
+  headers.set('Content-Type', 'text/html; charset=utf-8');
+  headers.set('Cache-Control', 'no-cache');
+  return new Response(asset.body, {
+    status: 200,
+    statusText: 'OK',
+    headers
+  });
 }

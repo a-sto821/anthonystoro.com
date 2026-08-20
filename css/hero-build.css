@@ -168,6 +168,11 @@
   competing with legibility. Desktop intentionally retains the darker Figma look.
 */
 @media (max-width: 720px) {
+  /* Figma node 179:14 extends the graphic 5.04% right and 15.99% down inside its frame. */
+  .hero-art-mobile .hero-build-stage {
+    transform: scale(var(--hero-build-scale, 1)) scale(1.0504, 1.1599);
+  }
+
   .hb-glow {
     background: radial-gradient(circle at 50% 50%, rgba(149, 185, 211, .18) 0%, rgba(206, 224, 237, .10) 62%, rgba(255, 255, 255, 0) 100%);
   }

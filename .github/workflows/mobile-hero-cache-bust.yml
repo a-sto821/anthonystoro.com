@@ -1,0 +1,28 @@
+name: Temporary mobile hero cache bust
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  cache-bust:
+    if: github.head_ref == 'bust-mobile-hero-css-cache' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: bust-mobile-hero-css-cache
+      - name: Bump mobile hero stylesheet version
+        run: |
+          sed -i 's|/css/mobile-home-polish.css?v=1|/css/mobile-home-polish.css?v=2|' index.html
+      - name: Commit cache bust
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Bust mobile hero stylesheet cache'
+          git push origin HEAD:bust-mobile-hero-css-cache

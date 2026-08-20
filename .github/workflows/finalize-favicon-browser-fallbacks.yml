@@ -1,0 +1,67 @@
+name: Temporary favicon browser fallback sync
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.head_ref == 'finalize-favicon-browser-fallbacks' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: finalize-favicon-browser-fallbacks
+
+      - name: Build favicon set from final Figma export
+        run: |
+          curl -L --fail --retry 3 'https://www.figma.com/api/mcp/asset/849292b5-9638-46f8-8872-341180bf41ad.png' -o /tmp/favicon-source.png
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          from PIL import Image
+
+          src = Image.open('/tmp/favicon-source.png').convert('RGBA')
+          if src.size != (512, 512):
+              raise SystemExit(f'Unexpected favicon size: {src.size}')
+
+          # Exact Figma-rendered favicon and browser-specific raster fallbacks.
+          src.save('favicon-as-final-v2.png', optimize=True)
+          for size, name in [
+              (16, 'favicon-16x16.png'),
+              (32, 'favicon-32x32.png'),
+              (192, 'favicon-192x192.png'),
+              (180, 'apple-touch-icon.png'),
+          ]:
+              src.resize((size, size), Image.Resampling.LANCZOS).save(name, optimize=True)
+
+          # Replace the legacy root favicon.ico so automatic /favicon.ico requests
+          # cannot surface an older Anthony Storo mark.
+          src.save('favicon.ico', format='ICO', sizes=[(16,16),(32,32),(48,48),(64,64),(128,128),(256,256)])
+
+          icon_block = '''  <link rel="icon" href="/favicon-32x32.png?v=20260820c" type="image/png" sizes="32x32">\n  <link rel="icon" href="/favicon-16x16.png?v=20260820c" type="image/png" sizes="16x16">\n  <link rel="icon" href="/favicon-192x192.png?v=20260820c" type="image/png" sizes="192x192">\n  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260820c" sizes="180x180">\n  <link rel="shortcut icon" href="/favicon.ico?v=20260820c" type="image/x-icon">\n'''
+
+          for filename in ('index.html', 'case-study.html', 'case-study-shell.txt'):
+              path = Path(filename)
+              text = path.read_text()
+              # Remove every existing favicon/apple-touch declaration to prevent conflicts.
+              text = re.sub(r'^\s*<link\s+rel="(?:icon|shortcut icon|apple-touch-icon)"[^>]*>\s*\n?', '', text, flags=re.MULTILINE)
+              marker = '  <meta name="theme-color" content="#151515">\n'
+              if marker not in text:
+                  raise SystemExit(f'Theme-color insertion point missing in {filename}')
+              text = text.replace(marker, marker + icon_block, 1)
+              path.write_text(text)
+          PY
+
+      - name: Commit definitive favicon assets
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add favicon-as-final-v2.png favicon-16x16.png favicon-32x32.png favicon-192x192.png apple-touch-icon.png favicon.ico index.html case-study.html case-study-shell.txt
+          git commit -m 'Use final Figma favicon across browser fallbacks'
+          git push origin HEAD:finalize-favicon-browser-fallbacks

@@ -1,0 +1,57 @@
+/* Exact Figma gallery renders for case studies. This overrides only the gallery area. */
+.case-study-body .case-gallery.figma-gallery-synced {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+}
+
+.case-study-body .case-gallery-picture,
+.case-study-body .case-gallery-render {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.case-study-body .case-gallery-render {
+  object-fit: fill;
+}
+
+.case-study-body .case-gallery-video-hit {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 4;
+  width: 65.57%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.case-study-body .case-gallery-video-hit:focus-visible {
+  outline: 2px solid #1f1f1f;
+  outline-offset: -4px;
+  border-radius: 14px;
+}
+
+@media (max-width: 720px) {
+  .case-study-body .case-gallery.figma-gallery-synced {
+    height: 160px;
+    border-radius: 16px;
+  }
+
+  .case-study-body .case-gallery-video-hit {
+    width: 100%;
+  }
+
+  .case-study-body .case-gallery-video-hit:focus-visible {
+    border-radius: 16px;
+  }
+}

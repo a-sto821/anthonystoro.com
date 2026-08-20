@@ -1,0 +1,45 @@
+name: Temporary final Figma favicon sync
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.head_ref == 'apply-final-figma-favicon' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: apply-final-figma-favicon
+
+      - name: Apply final favicon references
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          old_svg = '  <link rel="icon" href="/favicon-20260820.svg?v=2" type="image/svg+xml" sizes="any">\n'
+          old_png = '  <link rel="shortcut icon" href="/assets/logos/anthony-storo-logo.png?v=2" type="image/png">\n'
+          new_icon = '  <link rel="icon" href="/favicon-as-final.svg" type="image/svg+xml" sizes="any">\n'
+          new_shortcut = '  <link rel="shortcut icon" href="/favicon-as-final.svg" type="image/svg+xml">\n'
+
+          for filename in ('index.html', 'case-study.html'):
+              path = Path(filename)
+              text = path.read_text()
+              if old_svg not in text or old_png not in text:
+                  raise SystemExit(f'Expected favicon references not found in {filename}')
+              text = text.replace(old_svg, new_icon, 1).replace(old_png, new_shortcut, 1)
+              path.write_text(text)
+          PY
+
+      - name: Commit favicon references
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html case-study.html
+          git commit -m 'Use final Figma favicon'
+          git push origin HEAD:apply-final-figma-favicon

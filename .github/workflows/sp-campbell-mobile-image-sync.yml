@@ -1,0 +1,59 @@
+name: Temporary S. P. Campbell mobile image sync
+
+on:
+  push:
+    branches: [sp-campbell-mobile-image-fix]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: sp-campbell-mobile-image-fix
+      - name: Rebuild S. P. Campbell mobile gallery from current Figma crop
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/spcampbell
+          curl -L --fail --retry 3 -o /tmp/spcampbell/raw1.png 'https://www.figma.com/api/mcp/asset/45fdaeb1-054f-4734-83a0-097ce83269dc'
+          curl -L --fail --retry 3 -o /tmp/spcampbell/raw2.png 'https://www.figma.com/api/mcp/asset/05df99ad-526c-4ed3-82d0-5543188ad63c'
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+
+          candidates = [Path('/tmp/spcampbell/raw1.png'), Path('/tmp/spcampbell/raw2.png')]
+          expected_ratio = 342 / (160 * 6.6378)
+          scored = []
+          for path in candidates:
+              im = Image.open(path)
+              ratio = im.width / im.height
+              scored.append((abs(ratio - expected_ratio), path, im.size, ratio))
+              print(path.name, im.size, ratio)
+          scored.sort(key=lambda x: x[0])
+          _, source_path, size, ratio = scored[0]
+          print('Using', source_path.name, size, ratio)
+
+          source = Image.open(source_path).convert('RGB')
+          target_w, target_h = 1026, 480
+          resized_h = round(source.height * target_w / source.width)
+          source = source.resize((target_w, resized_h), Image.Resampling.LANCZOS)
+          y_fraction = 381.2 / 663.78
+          crop_y = round(resized_h * y_fraction)
+          crop_y = max(0, min(crop_y, resized_h - target_h))
+          crop = source.crop((0, crop_y, target_w, crop_y + target_h))
+          crop.save('assets/images/case-studies/sp-campbell-mobile.png', optimize=True)
+          print('Saved', crop.size, 'crop_y', crop_y, 'resized_h', resized_h)
+          PY
+      - name: Commit updated mobile gallery
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/images/case-studies/sp-campbell-mobile.png
+          git commit -m 'Sync S. P. Campbell mobile image to Figma'
+          git push origin HEAD:sp-campbell-mobile-image-fix

@@ -1,0 +1,43 @@
+name: Temporary mobile Retina gallery sync
+
+on:
+  push:
+    branches: [mobile-retina-gallery-fix]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: mobile-retina-gallery-fix
+      - name: Replace mobile case study galleries with 3x Figma exports
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 -o assets/images/case-studies/carlingtech-mobile.png 'https://www.figma.com/api/mcp/asset/cd220aa9-2804-40da-b783-3f355dd321f2.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/fuse-holder-selector-mobile.png 'https://www.figma.com/api/mcp/asset/e05d481d-a0c2-46b0-b234-97bec5a314df.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/v-series-selector-mobile.png 'https://www.figma.com/api/mcp/asset/e64a8b99-adec-4cd9-aef2-e439132ed1b7.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/sp-campbell-mobile.png 'https://www.figma.com/api/mcp/asset/bd03c156-6d2e-4372-a9ab-906bc4afb97e.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/carling-china-capabilities-mobile.png 'https://www.figma.com/api/mcp/asset/f6c317e8-4a66-43a7-9e1e-aedb235aebec.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/fuse-holder-product-overview-mobile.png 'https://www.figma.com/api/mcp/asset/19925ed1-7d29-4166-8669-75c8cb9df88f.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/window-switch-product-overview-mobile.png 'https://www.figma.com/api/mcp/asset/72777063-8d5c-4d09-b3c0-fed0489c3d1f.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/cole-hersee-100-year-mobile.png 'https://www.figma.com/api/mcp/asset/54f51956-4b5a-401c-9f8d-be4355276738.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/transportation-products-catalog-mobile.png 'https://www.figma.com/api/mcp/asset/f7337aae-eca8-4987-80a3-2b3b29ed29b5.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/carling-100-year-history-booklet-mobile.png 'https://www.figma.com/api/mcp/asset/df5c5a04-01ee-4930-8257-86412a8197f6.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/conexpo-trade-show-mobile.png 'https://www.figma.com/api/mcp/asset/696c1306-3114-4499-b02f-3e1fd0b630a9.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/arbor-meadows-mobile.png 'https://www.figma.com/api/mcp/asset/a2144423-6346-4bdf-8d7c-7afb80ca8f9a.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/little-stuess-book-mobile.png 'https://www.figma.com/api/mcp/asset/463e026c-8eee-4b36-99ed-05415b36501f.png'
+          curl -L --fail --retry 3 -o assets/images/case-studies/logo-brand-identity-mobile.png 'https://www.figma.com/api/mcp/asset/f994d594-86a8-46fa-9e2b-4d36aa2ce600.png'
+      - name: Commit Retina gallery assets
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/images/case-studies/*-mobile.png
+          git commit -m 'Upgrade mobile case study galleries to 3x Retina exports'
+          git push origin HEAD:mobile-retina-gallery-fix
